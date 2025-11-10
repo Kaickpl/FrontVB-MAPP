@@ -14,22 +14,17 @@ export default function Register() {
   const handleCadastro = (e) => {
     e.preventDefault();
 
-    // ### Lógica de Validação Local (Frontend) ###
     if (senha !== confirmarSenha) {
-      alert("As senhas não coincidem!"); // Exemplo simples, use um feedback melhor
+      alert("As senhas não coincidem!"); 
       return;
     }
 
-    // Por enquanto, apenas para demonstração de navegação:
     alert("Cadastro simulado realizado com sucesso! Redirecionando para o Login.");
-    navigate("/login"); // Redireciona para a tela de login após o cadastro
+    navigate("/login"); 
   };
 
   return (
-    // Opcionalmente, pode remover o `minHeight: "100vh"` daqui se for usar um layout mais complexo,
-    // mas mantive para garantir que o fundo branco cubra a tela.
     <div style={{ minHeight: "100vh", backgroundColor: "#fff" }}>
-      {/* Cabeçalho colorido */}
       <div
         style={{
           width: "100%",
@@ -46,7 +41,7 @@ export default function Register() {
           Cadastro
         </h4>
         <Link
-          to="/contato"
+          to="/suporte"
           style={{
             backgroundColor: "#000",
             color: "#fff",
