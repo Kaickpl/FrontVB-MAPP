@@ -30,7 +30,7 @@ export default function Login() {
       >
         <h4 style={{ color: "#000", fontWeight: "bold", margin: 0 }}>Login</h4>
         <Link
-          to="/contato"
+          to="/suporte"
           style={{
             backgroundColor: "#000",
             color: "#fff",
