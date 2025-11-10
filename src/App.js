@@ -1,0 +1,20 @@
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+import Cadastro from "./pages/Cadastro";
+import RecuperarSenha from "./pages/RecuperarSenha";
+import Suporte from './pages/Suporte';
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Navigate to="/login" />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/Cadastro" element={<Cadastro />} />
+      <Route path="/RecuperarSenha" element={<RecuperarSenha />} />
+      <Route path="/Suporte"  element={<Suporte />}/>
+    </Routes>
+  );
+}
