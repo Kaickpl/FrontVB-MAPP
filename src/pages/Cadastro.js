@@ -46,7 +46,7 @@ export default function Register() {
           Cadastro
         </h4>
         <Link
-          to="/contato"
+          to="/suporte"
           style={{
             backgroundColor: "#000",
             color: "#fff",
