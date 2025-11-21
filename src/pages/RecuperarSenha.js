@@ -1,8 +1,160 @@
+import React, { useState } from "react";
+import { Container, Form, Button, Row, Col, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-export default function RecoverPassword() {
+export default function RecuperarSenha() {
+  const [email, setEmail] = useState("");
+  const [novaSenha, setNovaSenha] = useState("");
+  const [confirmarSenha, setConfirmarSenha] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (novaSenha !== confirmarSenha) {
+      alert("As senhas não coincidem!");
+      return;
+    }
+
+    alert("Senha atualizada com sucesso! (simulação)");
+  };
+
   return (
-    <div className="text-center mt-5">
-      <h2>Tela de Recuperar Senha (em breve)</h2>
+    <div style={{ minHeight: "100vh", backgroundColor: "#fff" }}>
+      
+      {/* Cabeçalho */}
+      <div
+        style={{
+          width: "100%",
+          height: "60px",
+          background:
+            "linear-gradient(90deg, rgba(255,79,79,1) 0%, rgba(97,171,255,1) 50%, rgba(140,255,122,1) 100%)",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "0 30px",
+        }}
+      >
+        <h4 style={{ color: "#000", fontWeight: "bold", margin: 0 }}>
+          Recuperar Senha
+        </h4>
+
+        <div style={{ display: "flex", gap: "10px" }}>
+          <Link
+            to="/suporte"
+            style={{
+              backgroundColor: "#000",
+              color: "#fff",
+              padding: "8px 16px",
+              borderRadius: "8px",
+              textDecoration: "none",
+              fontSize: "0.9em",
+              fontWeight: "500",
+            }}
+          >
+            Suporte
+          </Link>
+
+          <Link
+            to="/tutorial"
+            style={{
+              backgroundColor: "#000",
+              color: "#fff",
+              padding: "8px 16px",
+              borderRadius: "8px",
+              textDecoration: "none",
+              fontSize: "0.9em",
+              fontWeight: "500",
+            }}
+          >
+            Tutorial
+          </Link>
+        </div>
+      </div>
+
+      {/* Corpo da página */}
+      <Container className="mt-5">
+        <Row className="justify-content-center align-items-start">
+
+          {/* Lado esquerdo - Tutorial */}
+          <Col md={6} className="mb-4">
+            <h1 style={{ fontWeight: "900", fontSize: "3em" }}>
+              Recuperar Senha
+            </h1>
+
+            <p className="mt-3" style={{ fontSize: "1.1em" }}>
+              Para sua segurança, sua nova senha deve seguir as regras abaixo:
+            </p>
+
+            <ul style={{ fontSize: "1.05em", lineHeight: "1.6" }}>
+              <li>✔ Pelo menos <strong>8 caracteres</strong></li>
+              <li>✔ Pelo menos <strong>1 letra maiúscula</strong></li>
+              <li>✔ Pelo menos <strong>1 letra minúscula</strong></li>
+              <li>✔ Pelo menos <strong>1 número</strong></li>
+              <li>✔ Pelo menos <strong>1 símbolo</strong> (! . @ # $ % &)</li>
+            </ul>
+
+            <p className="mt-3">
+              Após preencher o formulário ao lado, sua senha será atualizada
+              (simulação até que o backend esteja pronto).
+            </p>
+          </Col>
+
+          {/* Lado direito - Formulário */}
+          <Col md={5}>
+            <Card style={{ width: "100%", padding: "20px" }}>
+              <Form onSubmit={handleSubmit}>
+
+                <Form.Group className="mb-3">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="Digite seu email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                  <Form.Label>Nova Senha</Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="Crie sua nova senha"
+                    value={novaSenha}
+                    onChange={(e) => setNovaSenha(e.target.value)}
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-4">
+                  <Form.Label>Confirmar Senha</Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="Repita a nova senha"
+                    value={confirmarSenha}
+                    onChange={(e) => setConfirmarSenha(e.target.value)}
+                    required
+                  />
+                </Form.Group>
+
+                <div className="d-grid">
+                  <Button
+                    type="submit"
+                    style={{
+                      backgroundColor: "#000",
+                      border: "none",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Atualizar Senha
+                  </Button>
+                </div>
+              </Form>
+            </Card>
+          </Col>
+
+        </Row>
+      </Container>
     </div>
   );
 }

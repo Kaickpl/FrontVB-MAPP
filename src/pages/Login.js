@@ -15,9 +15,7 @@ export default function Login() {
 
   return (
     <div style={{ minHeight: "100vh", backgroundColor: "#fff" }}>
-      {/* Cabeçalho colorido */}
-      <div
-        style={{
+      <div style={{
           width: "100%",
           height: "60px",
           background:
@@ -46,9 +44,25 @@ export default function Login() {
         >
           Suporte
         </Link>
+        <Link
+          to="/tutorial"
+          style={{
+            backgroundColor: "#000",
+            color: "#fff",
+            padding: "8px 16px",
+            borderRadius: "8px",
+            textDecoration: "none",
+            fontSize: "0.9em",
+            fontWeight: "500",
+            transition: "0.3s",
+          }}
+          onMouseEnter={(e) => (e.target.style.backgroundColor = "#222")}
+          onMouseLeave={(e) => (e.target.style.backgroundColor = "#000")}
+        >
+          Tutorial
+        </Link>
       </div>
 
-      {/* Conteúdo principal */}
       <Container className="d-flex flex-column align-items-center mt-5">
 
         <h2 style={{ fontWeight: "bold", marginBottom: "30px" }}>
