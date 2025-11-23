@@ -1,121 +1,155 @@
-import React from "react";
-import { Container, Form, Button, Card, Navbar, Nav } from "react-bootstrap";
+import React, { useState } from "react";
+import { Container, Form, Button, Card, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-function Suporte() {
-  return (
-    <>
-      {/* 🔹 Cabeçalho fixo no topo */}
-      <Navbar
-        bg="light"
-        expand="lg"
-        fixed="top"
-        className="shadow-sm"
-        style={{ padding: "10px 40px" }}
-      >
-        <Navbar.Brand as={Link} to="/" style={{ fontWeight: "bold", color: "#00796b" }}>
-          Suporte Técnico
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
-            <Nav.Link as={Link} to="/" style={{ color: "#00796b" }}>
-              Início
-            </Nav.Link>
-            <Nav.Link as={Link} to="/suporte" style={{ color: "#00796b", fontWeight: "bold" }}>
-              Suporte
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+export default function Suporte() {
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [assunto, setAssunto] = useState("");
+  const [vezes, setVezes] = useState("");
+  const [mensagem, setMensagem] = useState("");
 
-      {/* 🔹 Conteúdo da página de suporte */}
-      <Container
-        className="d-flex justify-content-center align-items-center"
+  const handleEnviar = (e) => {
+    e.preventDefault();
+    alert("Mensagem enviada com sucesso! (Simulação)");
+  };
+
+  return (
+    <div style={{ minHeight: "100vh", backgroundColor: "#fff" }}>
+      <div
         style={{
-          minHeight: "100vh",
-          background: "linear-gradient(135deg, #e0f7fa, #f1f8e9)",
-          padding: "30px",
-          paddingTop: "100px", // espaço pro cabeçalho fixo
+          width: "100%",
+          height: "60px",
+          background:
+            "linear-gradient(90deg, rgba(255,79,79,1) 0%, rgba(97,171,255,1) 50%, rgba(140,255,122,1) 100%)",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "0 30px",
         }}
       >
-        <Card
+        <h4 style={{ color: "#000", fontWeight: "bold", margin: 0 }}>
+          Suporte Técnico
+        </h4>
+        <Link
+          to="/login"
           style={{
-            width: "100%",
-            maxWidth: "550px",
-            padding: "25px 30px",
-            borderRadius: "20px",
-            boxShadow: "0 8px 18px rgba(0,0,0,0.1)",
-            backgroundColor: "#ffffffcc",
-            backdropFilter: "blur(6px)",
+            backgroundColor: "#000",
+            color: "#fff",
+            padding: "8px 16px",
+            borderRadius: "8px",
+            textDecoration: "none",
+            fontSize: "0.9em",
+            fontWeight: "500",
+            transition: "0.3s",
           }}
+          onMouseEnter={(e) => (e.target.style.backgroundColor = "#222")}
+          onMouseLeave={(e) => (e.target.style.backgroundColor = "#000")}
         >
-        
-          <p className="text-center text-muted mb-4">
-            Preencha o formulário abaixo para relatar um problema ou enviar uma dúvida.
-          </p>
+          Voltar
+        </Link>
+      </div>
 
-          <Form>
-            <Form.Group className="mb-3">
-              <Form.Label>Nome</Form.Label>
-              <Form.Control type="text" placeholder="Digite seu nome" />
-            </Form.Group>
 
-            <Form.Group className="mb-3">
-              <Form.Label>E-mail</Form.Label>
-              <Form.Control type="email" placeholder="exemplo@email.com" />
-            </Form.Group>
+      <Container className="mt-5">
+        <Row className="justify-content-center align-items-start">
+ 
+          <Col md={6} className="d-none d-md-block" style={{ paddingRight: "20px" }}>
+            <h1 className="mt-5" style={{ fontSize: "4em", fontWeight: "800" }}>
+              Ajuda & Suporte
+            </h1>
+            <p className="lead mt-3">
+              Precisa de ajuda? Envie uma mensagem relatando seu problema ou dúvida
+              e nossa equipe retornará o mais breve possível.
+            </p>
+            <p className="mt-4 text-muted">
+              Se preferir, você pode acessar o{" "}
+              <Link to="/tutorial" style={{ color: "#007bff", fontWeight: "500" }}>
+                tutorial do VB-MAPP
+              </Link>{" "}
+              para entender melhor o funcionamento do sistema.
+            </p>
+          </Col>
 
-            <Form.Group className="mb-3">
-              <Form.Label>Assunto</Form.Label>
-              <Form.Control type="text" placeholder="Ex: Erro ao fazer login" />
-            </Form.Group>
+          <Col xs={12} md={6} className="d-flex flex-column align-items-center">
+            <h2 style={{ fontWeight: "bold", marginBottom: "30px" }}>Fale Conosco</h2>
 
-            <Form.Group className="mb-3">
-              <Form.Label>Quantas vezes o problema ocorreu?</Form.Label>
-              <Form.Control type="number" placeholder="Ex: 2" min="1" />
-            </Form.Group>
+            <Card style={{ width: "100%", maxWidth: "500px", padding: "20px" }}>
+              <Form onSubmit={handleEnviar}>
+                <Form.Group className="mb-3">
+                  <Form.Label>Nome</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Digite seu nome"
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
+                    required
+                  />
+                </Form.Group>
 
-            <Form.Group className="mb-3">
-              <Form.Label>Mensagem</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={4}
-                placeholder="Descreva o problema..."
-              />
-            </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>E-mail</Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="exemplo@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </Form.Group>
 
-            <div className="d-flex justify-content-between align-items-center mt-4">
-              <Button
-                variant="success"
-                type="submit"
-                style={{
-                  padding: "8px 25px",
-                  borderRadius: "10px",
-                  fontWeight: "600",
-                  backgroundColor: "#00796b",
-                  border: "none",
-                }}
-              >
-                Enviar
-              </Button>
+                <Form.Group className="mb-3">
+                  <Form.Label>Assunto</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Ex: Erro ao fazer login"
+                    value={assunto}
+                    onChange={(e) => setAssunto(e.target.value)}
+                    required
+                  />
+                </Form.Group>
 
-              <Link
-                to="/tutorial"
-                style={{
-                  textDecoration: "none",
-                  color: "#004d40",
-                  fontWeight: "600",
-                }}
-              >
-                Ver tutorial VB-MAPP →
-              </Link>
-            </div>
-          </Form>
-        </Card>
+                <Form.Group className="mb-3">
+                  <Form.Label>Quantas vezes o problema ocorreu?</Form.Label>
+                  <Form.Control
+                    type="number"
+                    placeholder="Ex: 2"
+                    min="1"
+                    value={vezes}
+                    onChange={(e) => setVezes(e.target.value)}
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                  <Form.Label>Mensagem</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={4}
+                    placeholder="Descreva o problema..."
+                    value={mensagem}
+                    onChange={(e) => setMensagem(e.target.value)}
+                    required
+                  />
+                </Form.Group>
+
+                <div className="d-grid">
+                  <Button
+                    type="submit"
+                    style={{
+                      backgroundColor: "#000",
+                      border: "none",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Enviar Mensagem
+                  </Button>
+                </div>
+              </Form>
+            </Card>
+          </Col>
+        </Row>
       </Container>
-    </>
+    </div>
   );
 }
-
-export default Suporte;
