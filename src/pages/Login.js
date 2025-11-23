@@ -15,7 +15,6 @@ export default function Login() {
 
   return (
     <div style={{ minHeight: "100vh", backgroundColor: "#fff" }}>
-      {/* Cabeçalho colorido */}
       <div
         style={{
           width: "100%",
