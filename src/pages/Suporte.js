@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container, Form, Button, Card, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Suporte() {
   const [nome, setNome] = useState("");
@@ -9,6 +9,8 @@ export default function Suporte() {
   const [vezes, setVezes] = useState("");
   const [mensagem, setMensagem] = useState("");
 
+  const navigate = useNavigate();
+
   const handleEnviar = (e) => {
     e.preventDefault();
     alert("Mensagem enviada com sucesso! (Simulação)");
@@ -16,6 +18,7 @@ export default function Suporte() {
 
   return (
     <div style={{ minHeight: "100vh", backgroundColor: "#fff" }}>
+      {/* Cabeçalho */}
       <div
         style={{
           width: "100%",
@@ -31,8 +34,10 @@ export default function Suporte() {
         <h4 style={{ color: "#000", fontWeight: "bold", margin: 0 }}>
           Suporte Técnico
         </h4>
-        <Link
-          to="/login"
+
+        {/* BOTÃO VOLTAR USANDO navigate(-1) */}
+        <button
+          onClick={() => navigate(-1)}
           style={{
             backgroundColor: "#000",
             color: "#fff",
@@ -41,38 +46,54 @@ export default function Suporte() {
             textDecoration: "none",
             fontSize: "0.9em",
             fontWeight: "500",
+            border: "none",
+            cursor: "pointer",
             transition: "0.3s",
           }}
           onMouseEnter={(e) => (e.target.style.backgroundColor = "#222")}
           onMouseLeave={(e) => (e.target.style.backgroundColor = "#000")}
         >
           Voltar
-        </Link>
+        </button>
       </div>
 
-
+      {/* Conteúdo */}
       <Container className="mt-5">
         <Row className="justify-content-center align-items-start">
- 
-          <Col md={6} className="d-none d-md-block" style={{ paddingRight: "20px" }}>
+          {/* Texto lateral */}
+          <Col
+            md={6}
+            className="d-none d-md-block"
+            style={{ paddingRight: "20px" }}
+          >
             <h1 className="mt-5" style={{ fontSize: "4em", fontWeight: "800" }}>
               Ajuda & Suporte
             </h1>
             <p className="lead mt-3">
-              Precisa de ajuda? Envie uma mensagem relatando seu problema ou dúvida
-              e nossa equipe retornará o mais breve possível.
+              Precisa de ajuda? Envie uma mensagem relatando seu problema ou
+              dúvida e nossa equipe retornará o mais breve possível.
             </p>
             <p className="mt-4 text-muted">
               Se preferir, você pode acessar o{" "}
-              <Link to="/tutorial" style={{ color: "#007bff", fontWeight: "500" }}>
+              <Link
+                to="/tutorial"
+                style={{ color: "#007bff", fontWeight: "500" }}
+              >
                 tutorial do VB-MAPP
               </Link>{" "}
               para entender melhor o funcionamento do sistema.
             </p>
           </Col>
 
-          <Col xs={12} md={6} className="d-flex flex-column align-items-center">
-            <h2 style={{ fontWeight: "bold", marginBottom: "30px" }}>Fale Conosco</h2>
+          {/* Formulário */}
+          <Col
+            xs={12}
+            md={6}
+            className="d-flex flex-column align-items-center"
+          >
+            <h2 style={{ fontWeight: "bold", marginBottom: "30px" }}>
+              Fale Conosco
+            </h2>
 
             <Card style={{ width: "100%", maxWidth: "500px", padding: "20px" }}>
               <Form onSubmit={handleEnviar}>
