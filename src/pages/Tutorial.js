@@ -6,41 +6,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 export default function Tutorial() {
   return (
     <div style={{ minHeight: "100vh", backgroundColor: "#fff" }}>
-      {/* Cabeçalho colorido */}
-      <div
-        style={{
-          width: "100%",
-          height: "60px",
-          background:
-            "linear-gradient(90deg, rgba(255,79,79,1) 0%, rgba(97,171,255,1) 50%, rgba(140,255,122,1) 100%)",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "0 30px",
-        }}
-      >
-        <h4 style={{ color: "#000", fontWeight: "bold", margin: 0 }}>
-          Tutorial VB-MAPP
-        </h4>
-
-        <Link
-          to="/suporte"
-          style={{
-            backgroundColor: "#000",
-            color: "#fff",
-            padding: "8px 16px",
-            borderRadius: "8px",
-            textDecoration: "none",
-            fontSize: "0.9em",
-            fontWeight: "500",
-            transition: "0.3s",
-          }}
-          onMouseEnter={(e) => (e.target.style.backgroundColor = "#222")}
-          onMouseLeave={(e) => (e.target.style.backgroundColor = "#000")}
-        >
-          Suporte
-        </Link>
-      </div>
+      <header className="cabecalho-principal">
+              <h4 className="titulo-cabecalho">Tutorial</h4>
+              <div style={{ display: 'flex', gap: '10px' }}>
+                  <Link to="/suporte" className="botao-suporte">
+                      Suporte
+                  </Link>
+                  <Link to="/home" className="botao-suporte">
+                    Home
+                  </Link>
+              </div>
+            </header>
 
       {/* Conteúdo principal */}
       <Container className="mt-5">

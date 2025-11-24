@@ -18,7 +18,6 @@ export default function Suporte() {
 
   return (
     <div style={{ minHeight: "100vh", backgroundColor: "#fff" }}>
-      {/* Cabeçalho */}
       <div
         style={{
           width: "100%",
@@ -34,10 +33,8 @@ export default function Suporte() {
         <h4 style={{ color: "#000", fontWeight: "bold", margin: 0 }}>
           Suporte Técnico
         </h4>
-
-        {/* BOTÃO VOLTAR USANDO navigate(-1) */}
-        <button
-          onClick={() => navigate(-1)}
+        <Link
+          to="/login"
           style={{
             backgroundColor: "#000",
             color: "#fff",
@@ -46,15 +43,13 @@ export default function Suporte() {
             textDecoration: "none",
             fontSize: "0.9em",
             fontWeight: "500",
-            border: "none",
-            cursor: "pointer",
             transition: "0.3s",
           }}
           onMouseEnter={(e) => (e.target.style.backgroundColor = "#222")}
           onMouseLeave={(e) => (e.target.style.backgroundColor = "#000")}
         >
           Voltar
-        </button>
+        </Link>
       </div>
 
       {/* Conteúdo */}

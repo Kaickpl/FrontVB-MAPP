@@ -1,183 +1,118 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Container, Card, Button } from "react-bootstrap";
-
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, CheckCircle, BarChart3, Zap, BookOpen } from 'lucide-react';
+import './Home.css';
 
 export default function Home() {
   const [mostrarPacientes, setMostrarPacientes] = useState(false);
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#f5f5f5" }}>
+    <div className='container-principal'>
       
-      {/* HERO */}
-      <div className="hero"></div>
-
-      {/* CABEÇALHO IGUAL AO LOGIN */}
-      <div
-        style={{
-          width: "100%",
-          height: "60px",
-          background:
-            "linear-gradient(90deg, rgba(255,79,79,1) 0%, rgba(97,171,255,1) 50%, rgba(140,255,122,1) 100%)",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "0 30px",
-        }}
-      >
-        <h4 style={{ color: "#000", fontWeight: "bold", margin: 0 }}>
-          Página Inicial
+      <header className="cabecalho-principal">
+        <h4 className="titulo-cabecalho">
+          Tela inicial
         </h4>
-
-        <div style={{ display: "flex", gap: "10px" }}>
-          <Link
-            to="/suporte"
-            style={{
-              backgroundColor: "#1E90FF",
-              color: "#fff",
-              padding: "8px 16px",
-              borderRadius: "8px",
-              textDecoration: "none",
-              fontSize: "0.9em",
-              fontWeight: "500",
-            }}
-          >
-            Suporte
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <Link to="/tutorial" className="botao-suporte">
+              Tutorial
           </Link>
-
-          <Link
-            to="/tutorial"
-            style={{
-              backgroundColor: "#1E90FF",
-              color: "#fff",
-              padding: "8px 16px",
-              borderRadius: "8px",
-              textDecoration: "none",
-              fontSize: "0.9em",
-              fontWeight: "500",
-            }}
-          >
-            Tutorial
+          <Link to="/suporte" className="botao-suporte">
+              Suporte
           </Link>
         </div>
-      </div>
+      </header>
 
-      {/* CONTEÚDO */}
-      <Container className="mt-5">
-        <h2 style={{ fontWeight: "bold", marginBottom: "25px" }}>
-          Bem-vindo ao VB-MAPP Digital
-        </h2>
-
-        <Card
-          style={{
-            padding: "20px",
-            marginBottom: "30px",
-            borderLeft: "5px solid #1E90FF",
-          }}
-        >
-          <h4>O que é o VB-MAPP?</h4>
-          <p style={{ marginTop: "10px" }}>
-            O VB-MAPP é um protocolo de avaliação baseado nos princípios da ABA,
-            usado para identificar marcos de desenvolvimento e barreiras de
-            aprendizagem.
-          </p>
-        </Card>
-
-        {/* CARDS */}
-        <div
-          style={{
-            display: "flex",
-            gap: "20px",
-            flexWrap: "wrap",
-            justifyContent: "center",
-          }}
-        >
-          {/* REALIZAR ATIVIDADE */}
-          <Card
-            style={{
-              width: "250px",
-              padding: "20px",
-              textAlign: "center",
-              borderRadius: "12px",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-            }}
-          >
-            <h5>Realizar Atividade</h5>
-            <p style={{ fontSize: "0.9em" }}>
-              Inicie uma nova atividade do protocolo VB-MAPP.
+      <main className='conteudo-pagina'>
+        
+        <section className='secao-apresentacao'>
+          <span className='etiqueta-destaque'>
+            Avaliação e Intervenção
+          </span>
+          <h1 className='titulo-principal'>
+            Protocolo VB-MAPP
+          </h1>
+          
+          <div className='cartao-informacao'>
+            <h3 className='titulo-cartao'>
+              <BookOpen className='text-blue-500' size={20}/> O que é?
+            </h3>
+            <p className="texto-cartao">
+              O <em>Verbal Behavior Milestones Assessment and Placement Program</em> (VB-MAPP) é uma ferramenta de avaliação utilizada com indivíduos diagnosticados com transtorno do espectro autista e outros atrasos de linguagem (Sundberg 2008). Os resultados determinam o nível de habilidade atual e identificam metas instrucionais.
             </p>
-            <Link to="/realizar-atividade" target="_blank">
-              <Button variant="dark" style={{ width: "100%" }}>
-                Abrir em nova guia
-              </Button>
-            </Link>
-          </Card>
+          </div>
 
-          {/* MOSTRAR PACIENTES */}
-          <Card
-            style={{
-              width: "250px",
-              padding: "20px",
-              textAlign: "center",
-              borderRadius: "12px",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-            }}
-          >
-            <h5>Alunos Cadastrados</h5>
-            <p style={{ fontSize: "0.9em" }}>
-              Clique para ver seus pacientes aqui mesmo.
+          <Link to='/Protocolo' className='botao-acao'>
+            Realize o protocolo! <ArrowRight className='ml-2 w-5 h-5'/>
+          </Link>
+        </section>
+
+        <section className='grid-duplo'>
+          <div className='cartao-contexto'>
+            <h3 className="titulo-contexto">
+              Contextualizando: TEA
+            </h3>
+            <p className="texto-cartao">
+              Transtorno do Espectro Autista (TEA) define-se por prejuízos persistentes na comunicação e interação social, bem como nos comportamentos que podem incluir os interesses e os padrões de atividades. Sintomas presentes desde a infância que limitam o funcionamento diário.
             </p>
-
-            <Button
-              variant="dark"
-              style={{ width: "100%" }}
-              onClick={() => setMostrarPacientes(!mostrarPacientes)}
-            >
-              Mostrar Pacientes
-            </Button>
-          </Card>
-
-          {/* INFORMAÇÕES PACIENTE */}
-          <Card
-            style={{
-              width: "250px",
-              padding: "20px",
-              textAlign: "center",
-              borderRadius: "12px",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-            }}
-          >
-            <h5>Informações dos Pacientes</h5>
-            <p style={{ fontSize: "0.9em" }}>
-              Consulte informações detalhadas.
+          </div>
+          
+          <div className="cartao-contexto">
+            <h3 className="titulo-contexto">
+              Como o protocolo ajuda?
+            </h3>
+            <p className="texto-cartao">
+              Pesquisas mostram um aumento imediato no desempenho após o Treinamento de Habilidades Comportamentais (BST) baseado nos dados do protocolo, fornecendo um norte claro para a intervenção.
             </p>
-            <Link to="/info-paciente" target="_blank">
-              <Button variant="dark" style={{ width: "100%" }}>
-                Abrir em nova guia
-              </Button>
-            </Link>
-          </Card>
-        </div>
+          </div>
+        </section>
 
-        {/* LISTA DE PACIENTES */}
-        {mostrarPacientes && (
-          <Card
-            style={{
-              marginTop: "30px",
-              padding: "20px",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-            }}
-          >
-            <h4>Pacientes Cadastrados</h4>
+        <section className="secao-recursos">
+          <div className="efeito-fundo efeito-azul"></div>
+          <div className="efeito-fundo efeito-roxo"></div>
 
-            <ul style={{ marginTop: "15px" }}>
-              <li>João Pedro - 5 anos</li>
-              <li>Ana Clara - 4 anos</li>
-              <li>Lucas Henrique - 6 anos</li>
-            </ul>
-          </Card>
-        )}
-      </Container>
+          <div className="conteudo-recursos">
+            <div className="cabecalho-recursos">
+              <h3 className="titulo-recursos">Use o site para o teste!</h3>
+              <p className="subtitulo-recursos">Nossa plataforma simplifica todo o processo clínico.</p>
+            </div>
+
+            <div className="grid-triplo">
+              
+              <div className="item-recurso">
+                <div className="container-icone icone-azul">
+                  <CheckCircle size={24} />
+                </div>
+                <h5 className="titulo-item">Preenchimento fácil</h5>
+                <p className="texto-item">
+                  Nosso site ajuda você a preencher os campos do protocolo de forma intuitiva, rápida e organizada.
+                </p>
+              </div>
+
+              <div className="item-recurso">
+                <div className="container-icone icone-amarelo">
+                  <Zap size={24} />
+                </div>
+                <h5 className="titulo-item">Automatização</h5>
+                <p className="texto-item">
+                  De acordo com os campos preenchidos, o sistema registra os resultados e ajuda a realizar análises automáticas.
+                </p>
+              </div>
+
+              <div className="item-recurso">
+                <div className="container-icone icone-verde">
+                  <BarChart3 size={24} />
+                </div>
+                <h5 className="titulo-item">Visualização Gráfica</h5>
+                <p className="texto-item">
+                  Elaboramos gráficos automáticos para melhorar o entendimento visual da evolução do paciente para os responsáveis.
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
   );
 }

@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { Container, Form, Button, Row, Col, Card } from "react-bootstrap";
+import React, { useState } from "react"; 
 import { Link, useNavigate } from "react-router-dom";
-
+import './Home.css';
 export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -9,118 +8,73 @@ export default function Login() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-
+    console.log("Logando com:", email, senha);
     navigate("/home");
   };
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#fff" }}>
-      <div style={{
-          width: "100%",
-          height: "60px",
-          background:
-            "linear-gradient(90deg, rgba(255,79,79,1) 0%, rgba(97,171,255,1) 50%, rgba(140,255,122,1) 100%)",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "0 30px",
-        }}
-      >
-        <h4 style={{ color: "#000", fontWeight: "bold", margin: 0 }}>Login</h4>
-        <Link
-          to="/suporte"
-          style={{
-            backgroundColor: "#000",
-            color: "#fff",
-            padding: "8px 16px",
-            borderRadius: "8px",
-            textDecoration: "none",
-            fontSize: "0.9em",
-            fontWeight: "500",
-            transition: "0.3s",
-          }}
-          onMouseEnter={(e) => (e.target.style.backgroundColor = "#222")}
-          onMouseLeave={(e) => (e.target.style.backgroundColor = "#000")}
-        >
-          Suporte
-        </Link>
-        <Link
-          to="/tutorial"
-          style={{
-            backgroundColor: "#000",
-            color: "#fff",
-            padding: "8px 16px",
-            borderRadius: "8px",
-            textDecoration: "none",
-            fontSize: "0.9em",
-            fontWeight: "500",
-            transition: "0.3s",
-          }}
-          onMouseEnter={(e) => (e.target.style.backgroundColor = "#222")}
-          onMouseLeave={(e) => (e.target.style.backgroundColor = "#000")}
-        >
-          Tutorial
-        </Link>
-      </div>
+    <div className="container-principal">
+      
+      <header className="cabecalho-principal">
+        <h4 className="titulo-cabecalho">Login</h4>
+        <div style={{ display: 'flex', gap: '10px' }}>
+            <Link to="/tutorial" className="botao-suporte">
+                Tutorial
+            </Link>
+            <Link to="/suporte" className="botao-suporte">
+                Suporte
+            </Link>
+        </div>
+      </header>
 
-      <Container className="d-flex flex-column align-items-center mt-5">
+      <main className="conteudo-pagina container-login">
+        
+        <div className="card-login">
+          <h2 className="titulo-principal" style={{ fontSize: '1.8rem', marginBottom: '1.5rem', textAlign: 'center' }}>
+            Protocolo VB-MAPP
+          </h2>
 
-        <h2 style={{ fontWeight: "bold", marginBottom: "30px" }}>
-          Protocolo VB-MAPP
-        </h2>
-
-        <Card style={{ width: "100%", maxWidth: "400px", padding: "20px" }}>
-          <Form onSubmit={handleLogin}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
+          <form onSubmit={handleLogin}>
+            <div className="grupo-input">
+              <label className="label-input">Email</label>
+              <input
                 type="email"
+                className="campo-input"
                 placeholder="Digite seu email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
-            </Form.Group>
+            </div>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Senha</Form.Label>
-              <Form.Control
+            <div className="grupo-input">
+              <label className="label-input">Senha</label>
+              <input
                 type="password"
+                className="campo-input"
                 placeholder="Digite sua senha"
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
                 required
               />
-            </Form.Group>
-
-            <div className="d-grid">
-              <Button
-                type="submit"
-                style={{
-                  backgroundColor: "#000",
-                  border: "none",
-                  fontWeight: "bold",
-                }}
-              >
-                Logar
-              </Button>
             </div>
 
-            <Row className="mt-3">
-              <Col className="text-start">
-                <Link to="/RecuperarSenha" style={{ fontSize: "0.9em" }}>
-                  Esqueceu a senha?
-                </Link>
-              </Col>
-              <Col className="text-end">
-                <Link to="/Cadastro" style={{ fontSize: "0.9em" }}>
-                  Não tem conta?
-                </Link>
-              </Col>
-            </Row>
-          </Form>
-        </Card>
-      </Container>
+            <button type="submit" className="botao-logar">
+              Logar
+            </button>
+
+            <div className="links-login">
+              <Link to="/RecuperarSenha" className="link-texto">
+                Esqueceu a senha?
+              </Link>
+              <Link to="/Cadastro" className="link-texto">
+                Não tem conta?
+              </Link>
+            </div>
+          </form>
+        </div>
+
+      </main>
     </div>
   );
 }

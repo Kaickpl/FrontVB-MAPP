@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, Form, Button, Card, Row, Col } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css"; // Certifique-se de que o CSS do Bootstrap está importado
+import "bootstrap/dist/css/bootstrap.min.css"; 
+import './Home.css';
+
 
 export default function Register() {
   const [nome, setNome] = useState("");
@@ -14,55 +16,29 @@ export default function Register() {
   const handleCadastro = (e) => {
     e.preventDefault();
 
-    // ### Lógica de Validação Local (Frontend) ###
     if (senha !== confirmarSenha) {
-      alert("As senhas não coincidem!"); // Exemplo simples, use um feedback melhor
+      alert("As senhas não coincidem!"); 
       return;
     }
 
-    // Por enquanto, apenas para demonstração de navegação:
     alert("Cadastro simulado realizado com sucesso! Redirecionando para o Login.");
-    navigate("/login"); // Redireciona para a tela de login após o cadastro
+    navigate("/login"); 
   };
 
   return (
-    // Opcionalmente, pode remover o `minHeight: "100vh"` daqui se for usar um layout mais complexo,
-    // mas mantive para garantir que o fundo branco cubra a tela.
+    
     <div style={{ minHeight: "100vh", backgroundColor: "#fff" }}>
-      {/* Cabeçalho colorido */}
-      <div
-        style={{
-          width: "100%",
-          height: "60px",
-          background:
-            "linear-gradient(90deg, rgba(255,79,79,1) 0%, rgba(97,171,255,1) 50%, rgba(140,255,122,1) 100%)",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "0 30px",
-        }}
-      >
-        <h4 style={{ color: "#000", fontWeight: "bold", margin: 0 }}>
-          Cadastro
+     
+      <header className="cabecalho-principal">
+        <h4 className="titulo-cabecalho">
+          Tela inicial
         </h4>
-        <Link
-          to="/suporte"
-          style={{
-            backgroundColor: "#000",
-            color: "#fff",
-            padding: "8px 16px",
-            borderRadius: "8px",
-            textDecoration: "none",
-            fontSize: "0.9em",
-            fontWeight: "500",
-            transition: "0.3s",
-          }}
-          onMouseEnter={(e) => (e.target.style.backgroundColor = "#222")}
-          onMouseLeave={(e) => (e.target.style.backgroundColor = "#000")}
-        >
-          Suporte
-        </Link>
-      </div>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <Link to="/suporte" className="botao-suporte">
+              Suporte
+          </Link>
+        </div>
+      </header>
 
       <Container className="mt-5">
         <Row className="justify-content-center align-items-start"> 

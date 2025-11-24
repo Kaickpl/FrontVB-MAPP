@@ -5,9 +5,8 @@ import Home from "./pages/Home";
 import Cadastro from "./pages/Cadastro";
 import RecuperarSenha from "./pages/RecuperarSenha";
 import Suporte from './pages/Suporte';
-import Tutorial from "./pages/Tutrial";
-import InfoPaciente from "./pages/InfoPaciente"; 
-
+import Tutorial from "./pages/Tutorial";
+import Protocolo from "./pages/Protocolo"; 
 
 export default function App() {
   return (
@@ -19,7 +18,7 @@ export default function App() {
       <Route path="/RecuperarSenha" element={<RecuperarSenha />} />
       <Route path="/Suporte"  element={<Suporte />}/>
       <Route path="/tutorial" element={<Tutorial />} />
-      <Route path="/info-paciente" element={<InfoPaciente />} />
+      <Route path="/Protocolo" element={<Protocolo />} />
     </Routes>
   );
 }
