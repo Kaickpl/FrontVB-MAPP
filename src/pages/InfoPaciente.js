@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Button, Form, Card } from "react-bootstrap";
 
+import { 
+  cadastrarPaciente, 
+  listarPacientes, 
+  deletarPaciente 
+} from "../Service/ApiPaciente";
+
 export default function InfoPaciente() {
+
   const [abaAtiva, setAbaAtiva] = useState("cadastrar");
 
-  // ESTADO DO FORMULÁRIO
+  // FORMULÁRIO DE CADASTRO
   const [form, setForm] = useState({
     nome: "",
     responsavel: "",
@@ -23,17 +30,57 @@ export default function InfoPaciente() {
     },
   });
 
-  // Atualiza o form de forma genérica
+  // Estados adicionais
+  const [lista, setLista] = useState([]);
+  const [busca, setBusca] = useState("");
+  const [idDeletar, setIdDeletar] = useState("");
+
+  // Atualiza campos gerais
   const atualizar = (campo, valor) => {
     setForm({ ...form, [campo]: valor });
   };
 
-  // Atualiza apenas o endereço
+  // Atualiza campos do endereço
   const atualizarEndereco = (campo, valor) => {
     setForm({
       ...form,
       endereco: { ...form.endereco, [campo]: valor },
     });
+  };
+
+  // ========================= SALVAR PACIENTE ===============================
+
+  const salvarPaciente = async () => {
+    try {
+      const resposta = await cadastrarPaciente(form);
+      alert("Paciente cadastrado com sucesso!");
+      console.log(resposta);
+    } catch (error) {
+      alert("Erro ao salvar paciente!");
+      console.error(error);
+    }
+  };
+
+  // ========================= LISTAR PACIENTES ===============================
+
+  const buscarPacientes = async () => {
+    try {
+      const dados = await listarPacientes(busca);
+      setLista(dados);
+    } catch (error) {
+      alert("Erro ao buscar pacientes!");
+    }
+  };
+
+  // ========================= DELETAR PACIENTE ===============================
+
+  const removerPaciente = async () => {
+    try {
+      await deletarPaciente(idDeletar);
+      alert("Paciente deletado!");
+    } catch (error) {
+      alert("Erro ao deletar paciente!");
+    }
   };
 
   return (
@@ -43,6 +90,7 @@ export default function InfoPaciente() {
         <Col md={3}>
           <Card className="p-3 shadow">
             <h5>Menu</h5>
+
             <Button
               className="mt-2 w-100"
               variant={abaAtiva === "cadastrar" ? "primary" : "outline-primary"}
@@ -69,14 +117,17 @@ export default function InfoPaciente() {
           </Card>
         </Col>
 
+        {/* ÁREA PRINCIPAL */}
         <Col md={9}>
-          {/* ============================ CADASTRAR PACIENTE ============================ */}
+
+          {/* ==================== CADASTRAR PACIENTE ==================== */}
           {abaAtiva === "cadastrar" && (
             <Card className="p-4 shadow">
               <h3 className="mb-3">Cadastrar Paciente</h3>
 
               <Form>
-                {/* --- DADOS PRINCIPAIS --- */}
+
+                {/* DADOS PRINCIPAIS */}
                 <h5 className="mt-3 mb-3">Dados do Paciente</h5>
                 <Row>
                   <Col md={6}>
@@ -85,7 +136,7 @@ export default function InfoPaciente() {
                       <Form.Control
                         type="text"
                         value={form.nome}
-                        onChange={e => atualizar("nome", e.target.value)}
+                        onChange={(e) => atualizar("nome", e.target.value)}
                       />
                     </Form.Group>
                   </Col>
@@ -96,7 +147,7 @@ export default function InfoPaciente() {
                       <Form.Control
                         type="text"
                         value={form.responsavel}
-                        onChange={e => atualizar("responsavel", e.target.value)}
+                        onChange={(e) => atualizar("responsavel", e.target.value)}
                       />
                     </Form.Group>
                   </Col>
@@ -109,7 +160,9 @@ export default function InfoPaciente() {
                       <Form.Control
                         type="text"
                         value={form.numeroResponsavel}
-                        onChange={e => atualizar("numeroResponsavel", e.target.value)}
+                        onChange={(e) =>
+                          atualizar("numeroResponsavel", e.target.value)
+                        }
                       />
                     </Form.Group>
                   </Col>
@@ -120,7 +173,9 @@ export default function InfoPaciente() {
                       <Form.Control
                         type="date"
                         value={form.dataNascimento}
-                        onChange={e => atualizar("dataNascimento", e.target.value)}
+                        onChange={(e) =>
+                          atualizar("dataNascimento", e.target.value)
+                        }
                       />
                     </Form.Group>
                   </Col>
@@ -132,7 +187,7 @@ export default function InfoPaciente() {
                       <Form.Label>Gênero*</Form.Label>
                       <Form.Select
                         value={form.genero}
-                        onChange={e => atualizar("genero", e.target.value)}
+                        onChange={(e) => atualizar("genero", e.target.value)}
                       >
                         <option value="">Selecione...</option>
                         <option value="Masculino">Masculino</option>
@@ -148,13 +203,15 @@ export default function InfoPaciente() {
                       <Form.Control
                         type="text"
                         value={form.observacoes}
-                        onChange={e => atualizar("observacoes", e.target.value)}
+                        onChange={(e) =>
+                          atualizar("observacoes", e.target.value)
+                        }
                       />
                     </Form.Group>
                   </Col>
                 </Row>
 
-                {/* --- ENDEREÇO --- */}
+                {/* ENDEREÇO */}
                 <h5 className="mt-4 mb-3">Endereço</h5>
 
                 <Row>
@@ -164,7 +221,7 @@ export default function InfoPaciente() {
                       <Form.Control
                         type="text"
                         value={form.endereco.cidade}
-                        onChange={e => atualizarEndereco("cidade", e.target.value)}
+                        onChange={(e) => atualizarEndereco("cidade", e.target.value)}
                       />
                     </Form.Group>
                   </Col>
@@ -175,7 +232,7 @@ export default function InfoPaciente() {
                       <Form.Control
                         type="text"
                         value={form.endereco.estado}
-                        onChange={e => atualizarEndereco("estado", e.target.value)}
+                        onChange={(e) => atualizarEndereco("estado", e.target.value)}
                       />
                     </Form.Group>
                   </Col>
@@ -186,7 +243,7 @@ export default function InfoPaciente() {
                       <Form.Control
                         type="text"
                         value={form.endereco.cep}
-                        onChange={e => atualizarEndereco("cep", e.target.value)}
+                        onChange={(e) => atualizarEndereco("cep", e.target.value)}
                       />
                     </Form.Group>
                   </Col>
@@ -199,7 +256,7 @@ export default function InfoPaciente() {
                       <Form.Control
                         type="text"
                         value={form.endereco.rua}
-                        onChange={e => atualizarEndereco("rua", e.target.value)}
+                        onChange={(e) => atualizarEndereco("rua", e.target.value)}
                       />
                     </Form.Group>
                   </Col>
@@ -210,7 +267,7 @@ export default function InfoPaciente() {
                       <Form.Control
                         type="text"
                         value={form.endereco.numero}
-                        onChange={e => atualizarEndereco("numero", e.target.value)}
+                        onChange={(e) => atualizarEndereco("numero", e.target.value)}
                       />
                     </Form.Group>
                   </Col>
@@ -221,7 +278,7 @@ export default function InfoPaciente() {
                       <Form.Control
                         type="text"
                         value={form.endereco.bairro}
-                        onChange={e => atualizarEndereco("bairro", e.target.value)}
+                        onChange={(e) => atualizarEndereco("bairro", e.target.value)}
                       />
                     </Form.Group>
                   </Col>
@@ -232,37 +289,82 @@ export default function InfoPaciente() {
                       <Form.Control
                         type="text"
                         value={form.endereco.complemento}
-                        onChange={e => atualizarEndereco("complemento", e.target.value)}
+                        onChange={(e) =>
+                          atualizarEndereco("complemento", e.target.value)
+                        }
                       />
                     </Form.Group>
                   </Col>
                 </Row>
 
-                <Button variant="success" className="mt-3 w-100">
+                {/* BOTÃO SALVAR */}
+                <Button
+                  variant="success"
+                  className="mt-3 w-100"
+                  onClick={salvarPaciente}
+                >
                   ✔ Salvar Paciente
                 </Button>
               </Form>
             </Card>
           )}
 
-          {/* ============================ LISTAR PACIENTE ============================ */}
+          {/* ==================== LISTAR PACIENTE ==================== */}
           {abaAtiva === "listar" && (
             <Card className="p-4 shadow">
               <h3>Pesquisar Paciente</h3>
-              <p>(Ainda sem ligação com o backend)</p>
 
-              <Form.Control placeholder="Digite o nome do paciente..." />
+              <Row className="mt-3">
+                <Col md={10}>
+                  <Form.Control
+                    placeholder="Digite o nome do paciente..."
+                    value={busca}
+                    onChange={(e) => setBusca(e.target.value)}
+                  />
+                </Col>
 
-              <div className="mt-4 text-center text-muted">Lista aparecerá aqui...</div>
+                <Col md={2}>
+                  <Button className="w-100" onClick={buscarPacientes}>
+                    Buscar
+                  </Button>
+                </Col>
+              </Row>
+
+              <div className="mt-4">
+                {lista.length === 0 ? (
+                  <p className="text-muted text-center">
+                    Nenhum paciente encontrado...
+                  </p>
+                ) : (
+                  <ul className="list-group">
+                    {lista.map((p) => (
+                      <li key={p.id} className="list-group-item">
+                        <strong>{p.nome}</strong> — Responsável: {p.responsavel}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </Card>
           )}
 
-          {/* ============================ DELETAR PACIENTE ============================ */}
+          {/* ==================== DELETAR PACIENTE ==================== */}
           {abaAtiva === "deletar" && (
             <Card className="p-4 shadow">
               <h3>Deletar Paciente</h3>
-              <Form.Control className="mt-3" placeholder="Digite o ID do paciente..." />
-              <Button className="mt-3" variant="danger">
+
+              <Form.Control
+                className="mt-3"
+                placeholder="Digite o ID do paciente..."
+                value={idDeletar}
+                onChange={(e) => setIdDeletar(e.target.value)}
+              />
+
+              <Button
+                className="mt-3"
+                variant="danger"
+                onClick={removerPaciente}
+              >
                 🗑 Deletar
               </Button>
             </Card>
