@@ -16,39 +16,17 @@ export default function Suporte() {
 
   return (
     <div style={{ minHeight: "100vh", backgroundColor: "#fff" }}>
-      <div
-        style={{
-          width: "100%",
-          height: "60px",
-          background:
-            "linear-gradient(90deg, rgba(255,79,79,1) 0%, rgba(97,171,255,1) 50%, rgba(140,255,122,1) 100%)",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "0 30px",
-        }}
-      >
-        <h4 style={{ color: "#000", fontWeight: "bold", margin: 0 }}>
-          Suporte Técnico
-        </h4>
-        <Link
-          to="/login"
-          style={{
-            backgroundColor: "#000",
-            color: "#fff",
-            padding: "8px 16px",
-            borderRadius: "8px",
-            textDecoration: "none",
-            fontSize: "0.9em",
-            fontWeight: "500",
-            transition: "0.3s",
-          }}
-          onMouseEnter={(e) => (e.target.style.backgroundColor = "#222")}
-          onMouseLeave={(e) => (e.target.style.backgroundColor = "#000")}
-        >
-          Voltar
-        </Link>
-      </div>
+      <header className="cabecalho-principal">
+          <h4 className="titulo-cabecalho">Login</h4>
+          <div style={{ display: 'flex', gap: '10px' }}>
+              <Link to="/tutorial" className="botao-suporte">
+                  Tutorial
+              </Link>
+              <Link to="/home" className="botao-suporte">
+                  Home
+              </Link>
+          </div>
+      </header>
 
 
       <Container className="mt-5">

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Container, Form, Button, Row, Col, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import './Home.css';
 
 export default function RecuperarSenha() {
   const [email, setEmail] = useState("");
@@ -21,55 +22,17 @@ export default function RecuperarSenha() {
   return (
     <div style={{ minHeight: "100vh", backgroundColor: "#fff" }}>
       
-      {/* Cabeçalho */}
-      <div
-        style={{
-          width: "100%",
-          height: "60px",
-          background:
-            "linear-gradient(90deg, rgba(255,79,79,1) 0%, rgba(97,171,255,1) 50%, rgba(140,255,122,1) 100%)",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "0 30px",
-        }}
-      >
-        <h4 style={{ color: "#000", fontWeight: "bold", margin: 0 }}>
-          Recuperar Senha
-        </h4>
-
-        <div style={{ display: "flex", gap: "10px" }}>
-          <Link
-            to="/suporte"
-            style={{
-              backgroundColor: "#000",
-              color: "#fff",
-              padding: "8px 16px",
-              borderRadius: "8px",
-              textDecoration: "none",
-              fontSize: "0.9em",
-              fontWeight: "500",
-            }}
-          >
-            Suporte
-          </Link>
-
-          <Link
-            to="/tutorial"
-            style={{
-              backgroundColor: "#000",
-              color: "#fff",
-              padding: "8px 16px",
-              borderRadius: "8px",
-              textDecoration: "none",
-              fontSize: "0.9em",
-              fontWeight: "500",
-            }}
-          >
-            Tutorial
-          </Link>
-        </div>
-      </div>
+      <header className="cabecalho-principal">
+              <h4 className="titulo-cabecalho">Recuperar senha</h4>
+              <div style={{ display: 'flex', gap: '10px' }}>
+                  <Link to="/tutorial" className="botao-suporte">
+                      Tutorial
+                  </Link>
+                  <Link to="/suporte" className="botao-suporte">
+                      Suporte
+                  </Link>
+              </div>
+            </header>
 
       {/* Corpo da página */}
       <Container className="mt-5">

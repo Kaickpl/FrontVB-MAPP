@@ -9,17 +9,20 @@ export default function Home() {
       
       <header className="cabecalho-principal">
         <h4 className="titulo-cabecalho">
-          Login / VB-MAPP
+          Tela inicial
         </h4>
-        
-        <Link to="/suporte" className="botao-suporte">
-          Suporte
-        </Link>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <Link to="/tutorial" className="botao-suporte">
+              Tutorial
+          </Link>
+          <Link to="/suporte" className="botao-suporte">
+              Suporte
+          </Link>
+        </div>
       </header>
 
       <main className='conteudo-pagina'>
         
-        {/* SEÇÃO APRESENTAÇÃO (Topo) */}
         <section className='secao-apresentacao'>
           <span className='etiqueta-destaque'>
             Avaliação e Intervenção
@@ -42,7 +45,6 @@ export default function Home() {
           </Link>
         </section>
 
-        {/* CONTEXTO (Grid Duplo) */}
         <section className='grid-duplo'>
           <div className='cartao-contexto'>
             <h3 className="titulo-contexto">
@@ -63,9 +65,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* SEÇÃO RECURSOS (Fundo Escuro com Efeitos) */}
         <section className="secao-recursos">
-          {/* Efeitos de fundo */}
           <div className="efeito-fundo efeito-azul"></div>
           <div className="efeito-fundo efeito-roxo"></div>
 
@@ -77,7 +77,6 @@ export default function Home() {
 
             <div className="grid-triplo">
               
-              {/* Recurso 1 */}
               <div className="item-recurso">
                 <div className="container-icone icone-azul">
                   <CheckCircle size={24} />
@@ -88,7 +87,6 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* Recurso 2 */}
               <div className="item-recurso">
                 <div className="container-icone icone-amarelo">
                   <Zap size={24} />
@@ -99,7 +97,6 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* Recurso 3 */}
               <div className="item-recurso">
                 <div className="container-icone icone-verde">
                   <BarChart3 size={24} />
