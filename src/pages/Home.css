@@ -369,3 +369,28 @@
 .link-texto:hover {
   text-decoration: underline;
 }
+
+.botao-nota {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1; 
+  background-color: white;
+  color: #475569; 
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out; 
+}
+
+.botao-nota:hover {
+  background-color: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.botao-nota.selecionado {
+  background-color: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+  transform: scale(1.05);
+  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.4);
+}
