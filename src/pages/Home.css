@@ -1,3 +1,10 @@
+ul{
+    list-style-type: disc;
+}
+
+li{
+    list-style-position: inside;
+}
 .container-principal {
     min-height: 100vh;
     background-color: #f8fafc;
@@ -393,4 +400,110 @@
   border-color: #3b82f6;
   transform: scale(1.05);
   box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.4);
+}
+
+.item-tutorial {
+    margin-bottom: 2px;
+    text-align: center;
+    height: 68px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: 0.75rem;
+    border: none;
+    transition: height 0.5s;
+}
+
+.item-tutorial h4{
+    position: relative;
+    bottom: 10px;
+    font-size: 28px;
+    font-weight: bolder;
+    color: #000000;
+}
+
+.item-tutorial p{
+    font-size: 19px;
+}
+.item-tutorial li {
+    font-size: 19px;
+}
+
+
+.item-tutorial:hover{
+    height: 200px;
+}
+
+.passo-1{
+    background-color: #f2575f69;
+}
+
+.passo-2{
+    background-color: #b679a091;
+}
+
+.passo-3{
+    background-color: #9b8abf94;
+}
+
+.passo-3:hover {
+    height: 220px;
+}
+
+.passo-4{
+    background-color: #8894d37a;
+}
+
+.passo-5{
+    background-color: #73a1ea7c;
+}
+
+.lista{
+    display: inline-block;
+    text-align: left;
+    max-width: 80%;
+    padding-left: 20px  ;
+}
+
+.objetivo-geral{
+    padding: 25px; 
+    margin-bottom: 30px; 
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.objetivo-geral p {
+    font-size: 18px;
+}
+
+.container-tutorial{
+    max-width: 800px; 
+    margin: 0 auto;  
+    padding: 20px;   
+}
+
+.botao-voltar{
+    text-decoration: none;
+    color: #666;
+    background-color: transparent;
+    
+    border: 2px solid #ddd;
+    border-radius: 8px; 
+    padding: 10px 30px;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.botao-voltar:hover {
+    border-color: #999;
+    color: #333;
+    background-color: #f9f9f9; 
+}
+
+.container-botoes {
+    margin-top: 30px;
+    text-align: center;
 }
