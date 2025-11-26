@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import React, { useState } from "react";
-import { ArrowRight, CheckCircle, BarChart3, Zap, BookOpen } from 'lucide-react';
+import { ArrowRight, CheckCircle, BarChart3, Zap, BookOpen, Divide } from 'lucide-react';
 import './Home.css';
 
 export default function Home() {
@@ -41,14 +41,16 @@ export default function Home() {
               O <em>Verbal Behavior Milestones Assessment and Placement Program</em> (VB-MAPP) é uma ferramenta de avaliação utilizada com indivíduos diagnosticados com transtorno do espectro autista e outros atrasos de linguagem (Sundberg 2008). Os resultados determinam o nível de habilidade atual e identificam metas instrucionais.
             </p>
           </div>
-
-          <Link to='/Protocolo' className='botao-acao'>
+          <div className='container-botoes'>
+            <Link to='/Protocolo' className='botao-acao'>
             Realize o protocolo! <ArrowRight className='ml-2 w-5 h-5'/>
-          </Link>
+            </Link>
+            
+            <Link to='/Infopaciente' className='botao-acao'>
+              Veja seus pacientes! <ArrowRight className='ml-2 w-5 h-5'/>
+            </Link>
+          </div>
           
-          <Link to='/Infopaciente' className='botao-acao'>
-            Veja seus pacientes! <ArrowRight className='ml-2 w-5 h-5'/>
-          </Link>
 
         </section>
 

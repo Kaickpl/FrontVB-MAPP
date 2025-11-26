@@ -72,21 +72,16 @@ export default function Register() {
             <p className="lead mt-3">
                 Preencha seus dados para criar sua conta e começar a usar o sistema agora mesmo.
             </p>
-            {/* Você pode adicionar uma imagem ou outra informação aqui */}
-            
           </Col>
 
-          {/* Coluna da Direita (Contém o seu formulário de Cadastro) */}
+      
           <Col xs={12} md={6} className="d-flex flex-column align-items-center">
-            
-            {/* O cabeçalho e o Card foram movidos para dentro desta coluna */}
             <h2 style={{ fontWeight: "bold", marginBottom: "30px" }}>
               Criar Nova Conta
             </h2>
 
             <Card style={{ width: "100%", maxWidth: "500px", padding: "20px" }}>
               <Form onSubmit={handleCadastro}>
-                {/* Campo Nome */}
                 <Form.Group className="mb-3" controlId="formBasicNome">
                   <Form.Label>Nome Completo</Form.Label>
                   <Form.Control
@@ -98,7 +93,6 @@ export default function Register() {
                   />
                 </Form.Group>
 
-                {/* Campo Email */}
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Label>Email</Form.Label>
                   <Form.Control
@@ -110,11 +104,10 @@ export default function Register() {
                   />
                 </Form.Group>
                 
-                {/* Campo Matrícula - Não mudei o tipo "email" se você usa ele para algo específico */}
                 <Form.Group className="mb-3" controlId="formBasicMatricula">
                   <Form.Label>Matrícula</Form.Label>
                   <Form.Control
-                    type="text" // Alterei de 'email' para 'text' para matrículas, ajuste se for um e-mail.
+                    type="text" 
                     placeholder="Digite seu número de matrícula"
                     value={matricula}
                     onChange={(e) => setMatricula(e.target.value)}
@@ -122,7 +115,6 @@ export default function Register() {
                   />
                 </Form.Group>
 
-                {/* Campo Senha */}
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                   <Form.Label>Senha</Form.Label>
                   <Form.Control
@@ -134,7 +126,6 @@ export default function Register() {
                   />
                 </Form.Group>
 
-                {/* Campo Confirmar Senha */}
                 <Form.Group className="mb-4" controlId="formBasicConfirmPassword">
                   <Form.Label>Confirmar Senha</Form.Label>
                   <Form.Control
@@ -145,7 +136,7 @@ export default function Register() {
                     required
                   />
                 </Form.Group>
-                {/* Campo Confirmar Senha */}
+                
                 <Form.Group className="mb-4" controlId="formBasicPeriodo">
                   <Form.Label>periodo</Form.Label>
                   <Form.Control
