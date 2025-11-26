@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Container, Form, Button, Card, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css"; 
 import './Home.css';
-
+import { cadastrarAluno } from "../Service/ApiAluno";
 
 export default function Register() {
   const [nome, setNome] = useState("");
@@ -11,19 +11,41 @@ export default function Register() {
   const [senha, setSenha] = useState("");
   const [matricula, setMatricula] = useState("");
   const [confirmarSenha, setConfirmarSenha] = useState("");
+  const [periodo,setPeriodo] = useState("");
   const navigate = useNavigate();
 
-  const handleCadastro = (e) => {
-    e.preventDefault();
+ const handleCadastro = async (e) => {
+  e.preventDefault();
 
-    if (senha !== confirmarSenha) {
-      alert("As senhas não coincidem!"); 
-      return;
-    }
+  if (senha !== confirmarSenha) {
+    alert("As senhas não coincidem!");
+    return;
+  }
 
-    alert("Cadastro simulado realizado com sucesso! Redirecionando para o Login.");
-    navigate("/login"); 
+  const aluno = {
+    nome: nome,
+    email: email,
+    matricula: matricula,
+    telefone: "",
+    senha: senha,
+    periodo: parseInt(periodo) 
   };
+
+    try {
+    await cadastrarAluno(aluno);
+    alert("Cadastro realizado com sucesso!");
+    navigate("/login");
+    
+  } catch (error) {
+    console.error("Erro:", error);
+    alert("Falha ao cadastrar. Verifique os dados e tente novamente.");
+  }
+  
+
+ 
+  
+};
+
 
   return (
     
@@ -120,6 +142,17 @@ export default function Register() {
                     placeholder="Confirme sua senha"
                     value={confirmarSenha}
                     onChange={(e) => setConfirmarSenha(e.target.value)}
+                    required
+                  />
+                </Form.Group>
+                {/* Campo Confirmar Senha */}
+                <Form.Group className="mb-4" controlId="formBasicPeriodo">
+                  <Form.Label>periodo</Form.Label>
+                  <Form.Control
+                    type="Text"
+                    placeholder="Digite em qual Periodo voc~e se encontra"
+                    value={periodo}
+                    onChange={(e) => setPeriodo(e.target.value)}
                     required
                   />
                 </Form.Group>
