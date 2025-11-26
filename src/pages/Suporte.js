@@ -33,8 +33,8 @@ export default function Suporte() {
         <h4 style={{ color: "#000", fontWeight: "bold", margin: 0 }}>
           Suporte Técnico
         </h4>
-        <Link
-          to="/login"
+         <button
+          onClick={() => navigate(-1)}
           style={{
             backgroundColor: "#000",
             color: "#fff",
@@ -43,13 +43,15 @@ export default function Suporte() {
             textDecoration: "none",
             fontSize: "0.9em",
             fontWeight: "500",
+            border: "none",
+            cursor: "pointer",
             transition: "0.3s",
           }}
           onMouseEnter={(e) => (e.target.style.backgroundColor = "#222")}
           onMouseLeave={(e) => (e.target.style.backgroundColor = "#000")}
         >
           Voltar
-        </Link>
+        </button>
       </div>
 
       {/* Conteúdo */}
