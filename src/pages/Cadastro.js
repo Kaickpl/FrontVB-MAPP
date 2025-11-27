@@ -141,7 +141,7 @@ export default function Register() {
                   <Form.Label>periodo</Form.Label>
                   <Form.Control
                     type="Text"
-                    placeholder="Digite em qual Periodo voc~e se encontra"
+                    placeholder="Digite em qual Periodo você se encontra"
                     value={periodo}
                     onChange={(e) => setPeriodo(e.target.value)}
                     required

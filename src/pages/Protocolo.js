@@ -8,6 +8,7 @@ import './Home.css';
 export default function Protocolo() {
   const [modalAberto, setModalAberto] = useState(false);
   const [areaSelecionada, setAreaSelecionada] = useState(null);
+  const [areasConcluidas, setAreasConcluidas] = useState({});
   
   const [respostas, setRespostas] = useState({});
 
@@ -104,8 +105,14 @@ export default function Protocolo() {
   const salvarAvaliacao = () => {
     console.log("Respostas Salvas:", respostas);
     alert("Dados salvos! ");
+
+    setAreasConcluidas(prev => ({
+      ...prev,
+      [areaSelecionada.id]: true
+    }));
+
     setModalAberto(false);
-  };
+};
 
   const perguntasAtuais = areaSelecionada ? bancoDePerguntas[areaSelecionada.id] : [];
 
@@ -159,8 +166,14 @@ export default function Protocolo() {
                 <p style={{color: '#64748b', fontSize: '0.95rem'}}>{area.descricao}</p>
               </div>
               <div style={{marginTop: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                <span style={{fontSize: '0.8rem', fontWeight: 'bold', color: '#94a3b8', backgroundColor: '#f1f5f9', padding: '5px 10px', borderRadius: '20px'}}>
-                  Pontuar
+                <span 
+                  className='etiqueta-pontuacao'
+                  style={{
+                    backgroundColor: areasConcluidas[area.id] ? '#105e55ff' : '', 
+                    color: areasConcluidas[area.id] ? 'white' : ''
+                  }}
+                >
+                  {areasConcluidas[area.id] ? "Concluído" : "Pontuar"}
                 </span>
                 <span style={{color: '#3b82f6', fontWeight: 'bold', display: 'flex', alignItems: 'center', fontSize: '0.9rem'}}>
                   Avaliar <ChevronRight size={16} />
