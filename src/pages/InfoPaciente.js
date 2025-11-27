@@ -4,7 +4,8 @@ import { Container, Row, Col, Button, Form, Card } from "react-bootstrap";
 import { 
   cadastrarPaciente, 
   listarPacientes, 
-  deletarPaciente 
+  deletarPaciente,
+  atualizarPaciente
 } from "../Service/ApiPaciente";
 
 export default function InfoPaciente() {
@@ -34,6 +35,7 @@ export default function InfoPaciente() {
   const [lista, setLista] = useState([]);
   const [busca, setBusca] = useState("");
   const [idDeletar, setIdDeletar] = useState("");
+  const [editId, setEditId] = useState(null);
 
   // Atualiza campos gerais
   const atualizar = (campo, valor) => {
@@ -48,39 +50,103 @@ export default function InfoPaciente() {
     });
   };
 
-  // ========================= SALVAR PACIENTE ===============================
+  // Limpa formulário
+  const limparFormulario = () => {
+    setForm({
+      nome: "",
+      responsavel: "",
+      numeroResponsavel: "",
+      dataNascimento: "",
+      genero: "",
+      observacoes: "",
+      endereco: {
+        cidade: "",
+        estado: "",
+        cep: "",
+        rua: "",
+        complemento: "",
+        numero: "",
+        bairro: "",
+      },
+    });
+    setEditId(null);
+  };
 
+  // ========================= SALVAR PACIENTE ===============================
   const salvarPaciente = async () => {
     try {
-      const resposta = await cadastrarPaciente(form);
-      alert("Paciente cadastrado com sucesso!");
-      console.log(resposta);
+      if (editId) {
+        // editar
+        await atualizarPaciente(editId, form);
+        alert("Paciente atualizado com sucesso!");
+      } else {
+        // cadastrar
+        await cadastrarPaciente(form);
+        alert("Paciente cadastrado com sucesso!");
+      }
+      limparFormulario();
+      // atualiza lista caso esteja na aba listar
+      if (abaAtiva === "listar") {
+        buscarPacientes();
+      }
     } catch (error) {
-      alert("Erro ao salvar paciente!");
       console.error(error);
+      alert("Erro ao salvar paciente: " + (error.message || ""));
     }
   };
 
   // ========================= LISTAR PACIENTES ===============================
-
   const buscarPacientes = async () => {
     try {
-      const dados = await listarPacientes(busca);
-      setLista(dados);
+      const dados = await listarPacientes(busca || "");
+      setLista(dados || []);
     } catch (error) {
-      alert("Erro ao buscar pacientes!");
+      console.error(error);
+      alert("Erro ao buscar pacientes: " + (error.message || ""));
     }
   };
 
   // ========================= DELETAR PACIENTE ===============================
-
   const removerPaciente = async () => {
+    if (!idDeletar) {
+      alert("Digite um ID para deletar.");
+      return;
+    }
+    if (!window.confirm("Deseja realmente deletar o paciente ID " + idDeletar + "?")) {
+      return;
+    }
     try {
       await deletarPaciente(idDeletar);
       alert("Paciente deletado!");
+      setIdDeletar("");
+      if (abaAtiva === "listar") buscarPacientes();
     } catch (error) {
-      alert("Erro ao deletar paciente!");
+      console.error(error);
+      alert("Erro ao deletar paciente: " + (error.message || ""));
     }
+  };
+
+  // ========================= PREPARAR EDIÇÃO ===============================
+  const iniciarEdicao = (p) => {
+    setForm({
+      nome: p.nome || "",
+      responsavel: p.responsavel || "",
+      numeroResponsavel: p.numeroResponsavel || "",
+      dataNascimento: p.dataNascimento || "",
+      genero: p.genero || "",
+      observacoes: p.observacoes || "",
+      endereco: {
+        cidade: p.endereco?.cidade || "",
+        estado: p.endereco?.estado || "",
+        cep: p.endereco?.cep || "",
+        rua: p.endereco?.rua || "",
+        complemento: p.endereco?.complemento || "",
+        numero: p.endereco?.numero || "",
+        bairro: p.endereco?.bairro || "",
+      },
+    });
+    setEditId(p.pacienteId || p.id || null);
+    setAbaAtiva("cadastrar"); // muda para formulário
   };
 
   return (
@@ -102,7 +168,10 @@ export default function InfoPaciente() {
             <Button
               className="mt-2 w-100"
               variant={abaAtiva === "listar" ? "primary" : "outline-primary"}
-              onClick={() => setAbaAtiva("listar")}
+              onClick={() => {
+                setAbaAtiva("listar");
+                buscarPacientes();
+              }}
             >
               📄 Listar Pacientes
             </Button>
@@ -120,10 +189,10 @@ export default function InfoPaciente() {
         {/* ÁREA PRINCIPAL */}
         <Col md={9}>
 
-          {/* ==================== CADASTRAR PACIENTE ==================== */}
+          {/* ==================== CADASTRAR/EDITAR PACIENTE ==================== */}
           {abaAtiva === "cadastrar" && (
             <Card className="p-4 shadow">
-              <h3 className="mb-3">Cadastrar Paciente</h3>
+              <h3 className="mb-3">{editId ? "Editar Paciente" : "Cadastrar Paciente"}</h3>
 
               <Form>
 
@@ -303,7 +372,7 @@ export default function InfoPaciente() {
                   className="mt-3 w-100"
                   onClick={salvarPaciente}
                 >
-                  ✔ Salvar Paciente
+                  ✔ {editId ? "Atualizar Paciente" : "Salvar Paciente"}
                 </Button>
               </Form>
             </Card>
@@ -338,8 +407,15 @@ export default function InfoPaciente() {
                 ) : (
                   <ul className="list-group">
                     {lista.map((p) => (
-                      <li key={p.id} className="list-group-item">
-                        <strong>{p.nome}</strong> — Responsável: {p.responsavel}
+                      <li key={p.pacienteId} className="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                          <strong>{p.nome}</strong> — Responsável: {p.responsavel}
+                          <div className="text-muted small">ID: {p.pacienteId}</div>
+                          <div className="text-muted small">{p.endereco?.rua}, {p.endereco?.numero} - {p.endereco?.bairro}</div>
+                        </div>
+                        <div>
+                          <Button size="sm" variant="outline-primary" onClick={() => iniciarEdicao(p)} className="me-2">Editar</Button>
+                        </div>
                       </li>
                     ))}
                   </ul>
