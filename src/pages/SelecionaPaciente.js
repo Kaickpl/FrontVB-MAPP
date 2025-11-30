@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { User, Calendar, ArrowRight, Users } from "lucide-react";
 
+
 import "./Home.css";
 import { listarPacientest } from "../Service/ApiPaciente";
 
@@ -37,7 +38,7 @@ export default function SelecionaPaciente() {
 
     console.log("Paciente Selecionado:", paciente.nomePaciente);
 
-    navigate("/consulta-paciente");
+    navigate("/Protocolo");
   };
 
   const definirAvatar = (genero) => {
