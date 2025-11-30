@@ -66,7 +66,7 @@ export default function Perfil() {
     try {
 
       const response = await fetch(
-  `http://localhost:8080/api/aluno/${aluno.alunoId}`,
+      `http://localhost:8080/api/aluno/${aluno.alunoId}`,
   {
     method: "DELETE"
   }

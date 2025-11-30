@@ -37,7 +37,7 @@ export default function SelecionaPaciente() {
 
     console.log("Paciente Selecionado:", paciente.nomePaciente);
 
-    navigate("/protocolo");
+    navigate("/consulta-paciente");
   };
 
   const definirAvatar = (genero) => {

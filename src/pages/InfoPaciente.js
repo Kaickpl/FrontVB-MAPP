@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Button, Form, Card } from "react-bootstrap";
 
-import { 
-  cadastrarPaciente, 
-  listarPacientes, 
+import {
+  cadastrarPaciente,
+  listarPacientes,
   deletarPaciente,
   atualizarPaciente
 } from "../Service/ApiPaciente";
@@ -145,9 +145,11 @@ export default function InfoPaciente() {
         bairro: p.endereco?.bairro || "",
       },
     });
-    setEditId(p.pacienteId || p.id || null);
-    setAbaAtiva("cadastrar"); // muda para formulário
+
+    setEditId(p.idPaciente);     // ID correto
+    setAbaAtiva("editar");      // ✅ AGORA VAI PRA ABA DE EDIÇÃO
   };
+
 
   return (
     <Container fluid className="mt-4">
@@ -170,7 +172,6 @@ export default function InfoPaciente() {
               variant={abaAtiva === "listar" ? "primary" : "outline-primary"}
               onClick={() => {
                 setAbaAtiva("listar");
-                buscarPacientes();
               }}
             >
               📄 Listar Pacientes
@@ -405,20 +406,40 @@ export default function InfoPaciente() {
                     Nenhum paciente encontrado...
                   </p>
                 ) : (
-                  <ul className="list-group">
+                  <div className="mt-4 d-flex flex-column gap-3">
                     {lista.map((p) => (
-                      <li key={p.pacienteId} className="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                          <strong>{p.nomePaciente}</strong> — Responsável: {p.responsavel}
-                          <div className="text-muted small">ID: {p.pacienteId}</div>
-                          <div className="text-muted small">{p.endereco?.rua}, {p.endereco?.numero} - {p.endereco?.bairro}</div>
-                        </div>
-                        <div>
-                          <Button size="sm" variant="outline-primary" onClick={() => iniciarEdicao(p)} className="me-2">Editar</Button>
-                        </div>
-                      </li>
+                      <Card key={p.idPaciente} className="shadow-sm">
+                        <Card.Body className="d-flex justify-content-between align-items-center">
+
+                          <div>
+                            <h5 className="mb-1">{p.nomePaciente}</h5>
+
+                            <div className="text-muted">
+                              👨‍👩‍👧 Responsável: <strong>{p.responsavel}</strong>
+                            </div>
+
+                            <div className="small text-muted mt-1">
+                              📅 {p.dataNascimento}
+                            </div>
+
+                            <div className="text-muted small">
+                              ID: {p.idPaciente}
+                            </div>
+
+                          </div>
+
+                          <Button
+                            variant="primary"
+                            size="sm"
+                            onClick={() => iniciarEdicao(p)}
+                          >
+                            ✏️ Editar
+                          </Button>
+
+                        </Card.Body>
+                      </Card>
                     ))}
-                  </ul>
+                  </div>
                 )}
               </div>
             </Card>
@@ -445,6 +466,112 @@ export default function InfoPaciente() {
               </Button>
             </Card>
           )}
+
+
+          {abaAtiva === "editar" && (
+            <Card className="p-4 shadow">
+              <h3 className="mb-3">✏️ Editar Paciente</h3>
+
+              <Form>
+
+                {/* DADOS PRINCIPAIS */}
+                <h5 className="mt-3 mb-3">Dados do Paciente</h5>
+                <Row>
+                  <Col md={6}>
+                    <Form.Group className="mb-3">
+                      <Form.Label>Nome*</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={form.nomePaciente}
+                        onChange={(e) => atualizar("nomePaciente", e.target.value)}
+                      />
+                    </Form.Group>
+                  </Col>
+
+                  <Col md={6}>
+                    <Form.Group className="mb-3">
+                      <Form.Label>Responsável*</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={form.responsavel}
+                        onChange={(e) => atualizar("responsavel", e.target.value)}
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+
+                <Row>
+                  <Col md={6}>
+                    <Form.Group className="mb-3">
+                      <Form.Label>Telefone do Responsável*</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={form.numeroResponsavel}
+                        onChange={(e) => atualizar("numeroResponsavel", e.target.value)}
+                      />
+                    </Form.Group>
+                  </Col>
+
+                  <Col md={6}>
+                    <Form.Group className="mb-3">
+                      <Form.Label>📅 Data de Nascimento*</Form.Label>
+                      <Form.Control
+                        type="date"
+                        value={form.dataNascimento}
+                        onChange={(e) => atualizar("dataNascimento", e.target.value)}
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+
+                <Row>
+                  <Col md={6}>
+                    <Form.Group className="mb-3">
+                      <Form.Label>Gênero*</Form.Label>
+                      <Form.Select
+                        value={form.genero}
+                        onChange={(e) => atualizar("genero", e.target.value)}
+                      >
+                        <option value="">Selecione...</option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Feminino">Feminino</option>
+                        <option value="Outro">Outro</option>
+                      </Form.Select>
+                    </Form.Group>
+                  </Col>
+
+                  <Col md={6}>
+                    <Form.Group className="mb-3">
+                      <Form.Label>Observações</Form.Label>
+                      <Form.Control
+                        value={form.observacoes}
+                        onChange={(e) => atualizar("observacoes", e.target.value)}
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+
+                {/* BOTÕES */}
+                <Button variant="warning" className="mt-3 w-100" onClick={salvarPaciente}>
+                  💾 Atualizar Paciente
+                </Button>
+
+                <Button
+                  variant="secondary"
+                  className="mt-2 w-100"
+                  onClick={() => {
+                    limparFormulario();
+                    setAbaAtiva("cadastrar");
+                  }}
+                >
+                  ↩ Cancelar edição
+                </Button>
+
+              </Form>
+            </Card>
+          )}
+
+
         </Col>
       </Row>
     </Container>
