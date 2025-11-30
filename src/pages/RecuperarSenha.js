@@ -37,18 +37,34 @@ const handleSubmit = async (e) => {
     });
 
     if (!response.ok) {
+
+      const contentType = response.headers.get("content-type");
+
+      // caso seja erro de validação (JSON)
+      if (contentType && contentType.includes("application/json")) {
+
+        const erros = await response.json();
+
+        // junta todas mensagens
+        let mensagem = "";
+
+        for (const campo in erros) {
+          mensagem += `• ${erros[campo]}\n`;
+        }
+
+        alert(mensagem);
+        return;
+      }
+
+      // caso seja erro simples em texto
       const texto = await response.text();
-      console.log("❌ ERRO BACK:", texto);
       throw new Error(texto);
     }
-
-    const data = await response.json();
-    console.log("✅ OK:", data);
 
     alert("Senha alterada com sucesso!");
 
   } catch (error) {
-    console.error("❌ ERRO FRONT:", error.message);
+    console.error(" ERRO FRONT:", error.message);
     alert("Erro ao atualizar senha");
   }
 };
@@ -92,8 +108,6 @@ const handleSubmit = async (e) => {
             </ul>
 
             <p className="mt-3">
-              Após preencher o formulário ao lado, sua senha será atualizada
-              (simulação até que o backend esteja pronto).
             </p>
           </Col>
 
