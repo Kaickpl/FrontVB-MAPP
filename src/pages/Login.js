@@ -31,7 +31,7 @@ export default function Login() {
       console.log("Login validado:", data);
 
       localStorage.setItem("usuarioLogado", JSON.stringify(data));
-      localStorage.setItem("alunoId", data.id); 
+      
       navigate("/home");
 
     } catch (error) {

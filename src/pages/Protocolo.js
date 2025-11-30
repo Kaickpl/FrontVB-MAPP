@@ -13,6 +13,7 @@ export default function Protocolo() {
   const [areaSelecionada, setAreaSelecionada] = useState(null);
   const [areasConcluidas, setAreasConcluidas] = useState({});
   
+  // Estado agora armazena notas por tentativa
   const [respostas, setRespostas] = useState({});
 
   useEffect(() => {
@@ -32,10 +33,10 @@ export default function Protocolo() {
     { id: 'mando', nome: 'Mando', descricao: 'Pede itens ou atividades desejadas' },
     { id: 'tato', nome: 'Tato', descricao: 'Nomeia itens, ações ou propriedades' },
     { id: 'ouvinte', nome: 'Ouvinte', descricao: 'Segue instruções e responde ao nome' },
-    { id: 'vpmts', nome: 'VP/MTS', descricao: 'Emparelhamento visual e quebra-cabeças' },
-    { id: 'brincar', nome: 'Brincar', descricao: 'Brinca de forma independente' },
+    { id: 'vpmts', nome: 'VPS/MTS', descricao: 'Emparelhamento visual e quebra-cabeças' },
+    { id: 'brincar', nome: 'Brincar Independente', descricao: 'Brinca de forma independente' },
     { id: 'social', nome: 'Social', descricao: 'Interage com outras pessoas' },
-    { id: 'imitacao', nome: 'Imitação', descricao: 'Copia movimentos motores' },
+    { id: 'imitacao', nome: 'Imitação Motora', descricao: 'Copia movimentos motores' },
     { id: 'ecoico', nome: 'Ecóico', descricao: 'Repete sons, palavras ou frases' },
     { id: 'vocal', nome: 'Vocal', descricao: 'Emite sons espontaneamente' }
   ];
@@ -111,11 +112,26 @@ export default function Protocolo() {
     setModalAberto(true);
   };
 
-  const pontuar = (marcoId, nota) => {
+  // Função para pontuar por tentativa
+  const pontuarTentativa = (marcoId, tentativa, nota) => {
     setRespostas(prev => ({
       ...prev,
-      [marcoId]: nota 
+      [marcoId]: {
+        ...(prev[marcoId] || {}),
+        [tentativa]: nota
+      }
     }));
+  };
+
+  // Calcula pontuação total por tentativa
+  const calcularPontuacaoTotal = (tentativa) => {
+    if (!areaSelecionada) return 0;
+    const perguntas = bancoDePerguntas[areaSelecionada.id];
+    let total = 0;
+    perguntas.forEach(m => {
+      total += respostas[m.id]?.[tentativa] || 0;
+    });
+    return total;
   };
 
   const salvarAvaliacao = () => {
@@ -130,7 +146,7 @@ export default function Protocolo() {
     }));
 
     setModalAberto(false);
-};
+  };
 
   const perguntasAtuais = areaSelecionada ? bancoDePerguntas[areaSelecionada.id] : [];
 
@@ -232,7 +248,7 @@ export default function Protocolo() {
             <div style={{padding: '20px'}}>
               {perguntasAtuais.map((marco, index) => {
                 const numeroMarco = index + 1;
-                const notaAtual = respostas[marco.id];
+                const notasMarco = respostas[marco.id] || {};
 
                 return (
                   <div key={marco.id} style={{marginBottom: '20px', paddingBottom: '20px', borderBottom: '1px solid #f1f5f9'}}>
@@ -248,23 +264,40 @@ export default function Protocolo() {
                         <p style={{fontWeight: '600', color: '#1e293b', marginBottom: '10px', marginTop: '5px'}}>
                           {marco.pergunta}
                         </p>
-                        
-                        <div style={{display: 'flex', gap: '10px'}}>
-                          {[0, 0.5, 1].map(pontos => (
-                            <button 
-                              key={pontos} 
-                              onClick={() => pontuar(marco.id, pontos)}
-                              className={`botao-nota ${notaAtual === pontos ? 'selecionado' : ''}`}
-                            >
-                              {pontos}
-                            </button>
-                          ))}
-                        </div>
+
+                        {[1,2,3,4].map(tentativa => (
+                          <div key={tentativa} style={{marginBottom: '10px'}}>
+                            <strong>Tentativa {tentativa}:</strong>
+                            <div style={{display: 'flex', gap: '10px', marginTop: '5px'}}>
+                              {[0,0.5,1].map(pontos => (
+                                <button 
+                                  key={pontos} 
+                                  onClick={() => pontuarTentativa(marco.id, tentativa, pontos)}
+                                  className={`botao-nota ${notasMarco[tentativa] === pontos ? 'selecionado' : ''}`}
+                                >
+                                  {pontos}
+                                </button>
+                              ))}
+                              <span style={{marginLeft:'10px', fontWeight:'bold'}}>
+                                Total: {notasMarco[tentativa] || 0}
+                              </span>
+                            </div>
+                          </div>
+                        ))}
+
                       </div>
                     </div>
                   </div>
                 );
               })}
+
+              <div style={{marginTop:'20px'}}>
+                {[1,2,3,4].map(tentativa => (
+                  <div key={tentativa} style={{marginBottom:'10px'}}>
+                    <strong>Pontuação total tentativa {tentativa}: {calcularPontuacaoTotal(tentativa)}</strong>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div style={{padding: '20px', borderTop: '1px solid #e2e8f0', textAlign: 'right', backgroundColor: '#f8fafc', borderRadius: '0 0 16px 16px'}}>
