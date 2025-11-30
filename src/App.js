@@ -7,7 +7,8 @@ import RecuperarSenha from "./pages/RecuperarSenha";
 import Suporte from './pages/Suporte';
 import Tutorial from "./pages/Tutorial";
 import Protocolo from "./pages/Protocolo"; 
-import InfoPaciente from "./pages/InfoPaciente"
+import InfoPaciente from "./pages/InfoPaciente";
+import SelecionaPaciente from "./pages/SelecionaPaciente"
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
       <Route path="/tutorial" element={<Tutorial />} />
       <Route path="/Protocolo" element={<Protocolo />} />
       <Route path="/InfoPaciente" element={<InfoPaciente/>}/>
+      <Route path="/SelecionaPaciente" element={<SelecionaPaciente/>}/>
     </Routes>
   );
 }

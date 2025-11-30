@@ -1,15 +1,33 @@
 import React, { useState } from "react"; 
 import { Link, useNavigate } from "react-router-dom";
 import './Home.css';
+import { logarUsuario } from "../Service/ApiAluno";
 export default function Login() {
-  const [email, setEmail] = useState("");
+ const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => { 
     e.preventDefault();
-    console.log("Logando com:", email, senha);
-    navigate("/home");
+    
+    try {
+      const dadosUsuario = await logarUsuario(email, senha);
+
+      if (dadosUsuario && dadosUsuario.id) {
+        localStorage.setItem("usuarioId", dadosUsuario.id);
+        localStorage.setItem("usuarioNome", dadosUsuario.nome); 
+        
+        console.log("Login sucesso! ID salvo:", dadosUsuario.id);
+        
+        navigate("/home"); 
+      } else {
+        alert("Erro: O servidor não retornou o ID do usuário.");
+      }
+
+    } catch (error) {
+      console.error(error);
+      alert("Falha no login: " + error.message);
+    }
   };
 
   return (

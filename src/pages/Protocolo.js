@@ -1,16 +1,34 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'; 
+import { Link, useNavigate } from 'react-router-dom';
 import { 
   ArrowLeft, CheckSquare, ChevronRight, X, Save 
 } from 'lucide-react';
 import './Home.css';
 
 export default function Protocolo() {
+  const navigate = useNavigate();
+  const [pacienteNome, setPacienteNome] = useState("Carregando...");
+  const [pacienteId, setPacienteId] = useState(null);
   const [modalAberto, setModalAberto] = useState(false);
   const [areaSelecionada, setAreaSelecionada] = useState(null);
   const [areasConcluidas, setAreasConcluidas] = useState({});
   
   const [respostas, setRespostas] = useState({});
+
+  useEffect(() => {
+    // Busca os dados salvos no navegador (localStorage)
+    const nomeSalvo = localStorage.getItem("pacienteSelecionadoNome");
+    const idSalvo = localStorage.getItem("pacienteSelecionadoId");
+
+    if (nomeSalvo) {
+      setPacienteNome(nomeSalvo);
+      setPacienteId(idSalvo);
+    } else {
+      // Se não tiver nome salvo, manda o usuário voltar pra escolher
+      alert("Nenhum paciente selecionado. Voltando para a lista...");
+      navigate("/selecionar-paciente"); 
+    }
+  }, [navigate]);
 
   const areasNivel1 = [
     { id: 'mando', nome: 'Mando', descricao: 'Pede itens ou atividades desejadas' },
@@ -103,8 +121,10 @@ export default function Protocolo() {
   };
 
   const salvarAvaliacao = () => {
-    console.log("Respostas Salvas:", respostas);
-    alert("Dados salvos! ");
+    console.log(`Salvando dados para o paciente ID: ${pacienteId}`);
+    console.log("Respostas:", respostas);
+    
+    alert(`Dados salvos para o paciente ${pacienteNome}!`);
 
     setAreasConcluidas(prev => ({
       ...prev,
@@ -127,7 +147,7 @@ export default function Protocolo() {
           <h4 className="titulo-cabecalho">Nível 1 - Avaliação</h4>
         </div>
         <div className="etiqueta-destaque" style={{marginBottom: 0, backgroundColor: 'rgba(255,255,255,0.2)', color: 'white'}}>
-          Paciente: Joãozinho
+          Paciente: {pacienteNome}
         </div>
       </header>
 
