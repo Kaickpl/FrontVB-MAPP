@@ -40,7 +40,7 @@ export default function Home() {
             </p>
           </div>
           <div className='container-botoes'>
-            <Link to='/Protocolo' className='botao-acao'>
+            <Link to='/SelecionaPaciente' className='botao-acao'>
             Realize o protocolo! <ArrowRight className='ml-2 w-5 h-5'/>
             </Link>
             
