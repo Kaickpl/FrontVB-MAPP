@@ -7,17 +7,52 @@ export default function RecuperarSenha() {
   const [email, setEmail] = useState("");
   const [novaSenha, setNovaSenha] = useState("");
   const [confirmarSenha, setConfirmarSenha] = useState("");
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  if (novaSenha !== confirmarSenha) {
+    alert("As senhas não coincidem");
+    return;
+  }
 
-    if (novaSenha !== confirmarSenha) {
-      alert("As senhas não coincidem!");
-      return;
+  try {
+
+    console.log("ENVIANDO:", {
+      email,
+      novaSenha,
+      confirmaSenha: confirmarSenha
+    });
+
+    const response = await fetch("http://localhost:8080/api/aluno/recuperarSenha", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        email: email,
+        novaSenha: novaSenha,
+        confirmaSenha: confirmarSenha
+      })
+    });
+
+    if (!response.ok) {
+      const texto = await response.text();
+      console.log("❌ ERRO BACK:", texto);
+      throw new Error(texto);
     }
 
-    alert("Senha atualizada com sucesso! (simulação)");
-  };
+    const data = await response.json();
+    console.log("✅ OK:", data);
+
+    alert("Senha alterada com sucesso!");
+
+  } catch (error) {
+    console.error("❌ ERRO FRONT:", error.message);
+    alert("Erro ao atualizar senha");
+  }
+};
+
 
   return (
     <div style={{ minHeight: "100vh", backgroundColor: "#fff" }}>

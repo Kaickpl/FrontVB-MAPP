@@ -14,7 +14,7 @@ export default function InfoPaciente() {
 
   // FORMULÁRIO DE CADASTRO
   const [form, setForm] = useState({
-    nome: "",
+    nomePaciente: "",
     responsavel: "",
     numeroResponsavel: "",
     dataNascimento: "",
@@ -53,7 +53,7 @@ export default function InfoPaciente() {
   // Limpa formulário
   const limparFormulario = () => {
     setForm({
-      nome: "",
+      nomePaciente: "",
       responsavel: "",
       numeroResponsavel: "",
       dataNascimento: "",
@@ -129,7 +129,7 @@ export default function InfoPaciente() {
   // ========================= PREPARAR EDIÇÃO ===============================
   const iniciarEdicao = (p) => {
     setForm({
-      nome: p.nome || "",
+      nomePaciente: p.nomePaciente || "",
       responsavel: p.responsavel || "",
       numeroResponsavel: p.numeroResponsavel || "",
       dataNascimento: p.dataNascimento || "",
@@ -204,8 +204,8 @@ export default function InfoPaciente() {
                       <Form.Label>Nome*</Form.Label>
                       <Form.Control
                         type="text"
-                        value={form.nome}
-                        onChange={(e) => atualizar("nome", e.target.value)}
+                        value={form.nomePaciente}
+                        onChange={(e) => atualizar("nomePaciente", e.target.value)}
                       />
                     </Form.Group>
                   </Col>
@@ -409,7 +409,7 @@ export default function InfoPaciente() {
                     {lista.map((p) => (
                       <li key={p.pacienteId} className="list-group-item d-flex justify-content-between align-items-center">
                         <div>
-                          <strong>{p.nome}</strong> — Responsável: {p.responsavel}
+                          <strong>{p.nomePaciente}</strong> — Responsável: {p.responsavel}
                           <div className="text-muted small">ID: {p.pacienteId}</div>
                           <div className="text-muted small">{p.endereco?.rua}, {p.endereco?.numero} - {p.endereco?.bairro}</div>
                         </div>

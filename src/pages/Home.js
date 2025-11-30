@@ -1,10 +1,8 @@
 import { Link } from 'react-router-dom';
-import React, { useState } from "react";
-import { ArrowRight, CheckCircle, BarChart3, Zap, BookOpen, Divide } from 'lucide-react';
+import { ArrowRight, CheckCircle, BarChart3, Zap, BookOpen} from 'lucide-react';
 import './Home.css';
 
 export default function Home() {
-  const [mostrarPacientes, setMostrarPacientes] = useState(false);
 
   return (
     <div className='container-principal'>

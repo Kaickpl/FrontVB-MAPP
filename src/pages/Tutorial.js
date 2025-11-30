@@ -1,6 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import { Container, Card, Row, Col } from "react-bootstrap";
+import { Container, Card} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Tutorial() {
@@ -10,7 +9,7 @@ export default function Tutorial() {
               <h4 className="titulo-cabecalho">Tutorial</h4>
               <div style={{ display: 'flex', gap: '10px' }}>
                   <Link to="/suporte" className="botao-suporte">
-                      Suporte
+                      Suportes
                   </Link>
                   <Link to="/home" className="botao-suporte">
                     Home
@@ -109,10 +108,6 @@ export default function Tutorial() {
                   Voltar ao Login
                 </Link>
               </div>
-              
-
-              
-            
       </Container>
     </div>
   );
