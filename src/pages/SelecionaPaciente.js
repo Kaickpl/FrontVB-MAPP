@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { User, Calendar, ArrowRight, Users } from "lucide-react";
 import './Home.css';import { listarPacientesPorUsuario } from "../Service/ApiPaciente";
@@ -134,7 +135,11 @@ export default function SelecionaPaciente() {
                         </button>
                     </div>
                 ))}
+                <Link to='/Infopaciente' className='botao-acao'>
+                    + Adicionar paciente <ArrowRight className='ml-2 w-5 h-5'/>
+                </Link>
             </div>
+            
         )}
       </main>
     </div>
