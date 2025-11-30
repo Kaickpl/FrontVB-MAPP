@@ -66,15 +66,11 @@ export default function Perfil() {
     try {
 
       const response = await fetch(
-        "http://localhost:8080/api/aluno",
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(aluno.alunoId)
-        }
-      );
+  `http://localhost:8080/api/aluno/${aluno.alunoId}`,
+  {
+    method: "DELETE"
+  }
+);
 
       if (!response.ok) {
         throw new Error("Erro ao excluir conta");
