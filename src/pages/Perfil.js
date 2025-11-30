@@ -107,7 +107,7 @@ export default function Perfil() {
                 <Form.Label>Nome</Form.Label>
                 <Form.Control
                   name="nomeAluno"
-                  value={aluno.nome}
+                  value={aluno.nomeAluno}
                   onChange={handleChange}
                   disabled={!editando}
                 />

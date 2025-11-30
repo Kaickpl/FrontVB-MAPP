@@ -32,21 +32,14 @@ export async function listarPacientes(nome = "") {
   return await tratarResposta(response);
 }
 
-export async function listarPacientesPorUsuario(idUsuario) {
-  console.log(`🔎 Buscando pacientes simulados para o usuário ID: 2`);
-  try {
-    //mudar aqui ó
-        const response = await fetch(`${API_URL}/usuario/2`);
-        
-        if (!response.ok) {
-            throw new Error('Erro ao buscar pacientes');
-        }
+export async function listarPacientest() {
+  const response = await fetch(`${API_URL}/listar`);
 
-        return await response.json();
-    } catch (error) {
-        console.error(error);
-        return []; 
-    }
+  if (!response.ok) {
+    throw new Error("Erro ao buscar pacientes");
+  }
+
+  return await response.json();
 }
 
 export async function deletarPaciente(id) {
