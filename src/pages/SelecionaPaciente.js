@@ -25,6 +25,7 @@ export default function SelecionaPaciente() {
     } finally {
       setLoading(false);
     }
+
   };
 
   const selecionarPaciente = (paciente) => {

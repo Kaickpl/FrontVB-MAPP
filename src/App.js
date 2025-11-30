@@ -9,6 +9,8 @@ import Tutorial from "./pages/Tutorial";
 import Protocolo from "./pages/Protocolo"; 
 import InfoPaciente from "./pages/InfoPaciente";
 import SelecionaPaciente from "./pages/SelecionaPaciente"
+import Perfil from "./pages/Perfil";
+
 
 export default function App() {
   return (
@@ -23,6 +25,7 @@ export default function App() {
       <Route path="/Protocolo" element={<Protocolo />} />
       <Route path="/InfoPaciente" element={<InfoPaciente/>}/>
       <Route path="/SelecionaPaciente" element={<SelecionaPaciente/>}/>
+      <Route path="/perfil" element={<Perfil />} />
     </Routes>
   );
 }

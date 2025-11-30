@@ -6,7 +6,8 @@ import './Home.css';
 import { cadastrarAluno } from "../Service/ApiAluno";
 
 export default function Register() {
-  const [nome, setNome] = useState("");
+  const [nomeAluno, setNome] = useState("");
+  const [telefone,settelefone] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [matricula, setMatricula] = useState("");
@@ -22,11 +23,21 @@ export default function Register() {
     return;
   }
 
+  if (!/^\d{9}$/.test(matricula)) {
+    alert("A matrícula deve conter exatamente 9 números.");
+    return;
+  }
+
+  if (!/^\d{10,11}$/.test(telefone)) {
+    alert("O telefone deve conter 10 ou 11 números.");
+    return;
+  }
+
   const aluno = {
-    nome: nome,
+    nomeAluno: nomeAluno,
     email: email,
     matricula: matricula,
-    telefone: "",
+    telefone: telefone,
     senha: senha,
     periodo: parseInt(periodo) 
   };
@@ -87,8 +98,19 @@ export default function Register() {
                   <Form.Control
                     type="text"
                     placeholder="Seu nome completo"
-                    value={nome}
+                    value={nomeAluno}
                     onChange={(e) => setNome(e.target.value)}
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicNome">
+                  <Form.Label>Numero telefone</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Seu numero de telefone"
+                    value={telefone}
+                    onChange={(e) => settelefone(e.target.value)}
                     required
                   />
                 </Form.Group>

@@ -30,7 +30,7 @@ export default function Login() {
       const data = await response.json();
       console.log("Login validado:", data);
 
-      localStorage.setItem("usuario", JSON.stringify(data));
+      localStorage.setItem("usuarioLogado", JSON.stringify(data));
       navigate("/home");
 
     } catch (error) {

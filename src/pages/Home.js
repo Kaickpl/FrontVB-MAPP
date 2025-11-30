@@ -18,6 +18,10 @@ export default function Home() {
           <Link to="/suporte" className="botao-suporte">
               Suporte
           </Link>
+
+          <Link to="/Perfil" className="botao-suporte">
+              Meu Perfil
+          </Link>
         </div>
       </header>
 
