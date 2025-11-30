@@ -16,7 +16,6 @@ export default function Protocolo() {
   const [respostas, setRespostas] = useState({});
 
   useEffect(() => {
-    // Busca os dados salvos no navegador (localStorage)
     const nomeSalvo = localStorage.getItem("pacienteSelecionadoNome");
     const idSalvo = localStorage.getItem("pacienteSelecionadoId");
 
@@ -24,7 +23,6 @@ export default function Protocolo() {
       setPacienteNome(nomeSalvo);
       setPacienteId(idSalvo);
     } else {
-      // Se não tiver nome salvo, manda o usuário voltar pra escolher
       alert("Nenhum paciente selecionado. Voltando para a lista...");
       navigate("/selecionar-paciente"); 
     }

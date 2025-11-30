@@ -21,7 +21,7 @@ export default function SelecionaPaciente() {
       const dados = await listarPacientesPorUsuario(idUsuarioLogado);
       setLista(dados || []);
     } catch (error) {
-      alert("Erro ao carregar lista simulada");
+      alert("Erro ao carregar lista");
     } finally {
       setLoading(false);
     }
