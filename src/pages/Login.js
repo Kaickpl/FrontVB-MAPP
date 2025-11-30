@@ -1,15 +1,41 @@
 import React, { useState } from "react"; 
 import { Link, useNavigate } from "react-router-dom";
 import './Home.css';
+
 export default function Login() {
+
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("Logando com:", email, senha);
-    navigate("/home");
+
+    try {
+      const response = await fetch("http://localhost:8080/api/aluno/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          senha: senha,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Email ou senha inválidos");
+      }
+
+      const data = await response.json();
+      console.log("Login validado:", data);
+
+      localStorage.setItem("usuario", JSON.stringify(data));
+      navigate("/home");
+
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
@@ -18,23 +44,21 @@ export default function Login() {
       <header className="cabecalho-principal">
         <h4 className="titulo-cabecalho">Login</h4>
         <div style={{ display: 'flex', gap: '10px' }}>
-            <Link to="/tutorial" className="botao-suporte">
-                Tutorial
-            </Link>
-            <Link to="/suporte" className="botao-suporte">
-                Suporte
-            </Link>
+          <Link to="/tutorial" className="botao-suporte">Tutorial</Link>
+          <Link to="/suporte" className="botao-suporte">Suporte</Link>
         </div>
       </header>
 
       <main className="conteudo-pagina container-login">
         
         <div className="card-login">
-          <h2 className="titulo-principal" style={{ fontSize: '1.8rem', marginBottom: '1.5rem', textAlign: 'center' }}>
+          <h2 className="titulo-principal"
+              style={{ fontSize: '1.8rem', marginBottom: '1.5rem', textAlign: 'center' }}>
             Protocolo VB-MAPP
           </h2>
 
           <form onSubmit={handleLogin}>
+
             <div className="grupo-input">
               <label className="label-input">Email</label>
               <input
@@ -71,6 +95,7 @@ export default function Login() {
                 Não tem conta?
               </Link>
             </div>
+
           </form>
         </div>
 
