@@ -114,14 +114,31 @@ export default function Protocolo() {
 
   // Função para pontuar por tentativa
   const pontuarTentativa = (marcoId, tentativa, nota) => {
-    setRespostas(prev => ({
-      ...prev,
-      [marcoId]: {
-        ...(prev[marcoId] || {}),
-        [tentativa]: nota
+  setRespostas(prev => {
+    const atual = { ...(prev[marcoId] || {}) };
+    atual[tentativa] = nota;
+
+    // Regra: Se 1 e 2 forem 0 → 3 e 4 = 0
+    if ((atual[1] === 0 && atual[2] === 0)) {
+      atual[3] = 0;
+      atual[4] = 0;
+    }
+
+    // Regra de coerência: se tentativa anterior for 0, todas seguintes = 0
+    if (tentativa > 1) {
+      for (let i = tentativa - 1; i >= 1; i--) {
+        if (atual[i] === 0) {
+          atual[tentativa] = 0;
+        }
       }
-    }));
-  };
+    }
+
+    return {
+      ...prev,
+      [marcoId]: atual
+    };
+  });
+};
 
   // Calcula pontuação total por tentativa
   const calcularPontuacaoTotal = (tentativa) => {
@@ -134,19 +151,30 @@ export default function Protocolo() {
     return total;
   };
 
-  const salvarAvaliacao = () => {
-    console.log(`Salvando dados para o paciente ID: ${pacienteId}`);
-    console.log("Respostas:", respostas);
-    
-    alert(`Dados salvos para o paciente ${pacienteNome}!`);
+ const salvarAvaliacao = () => {
+  const perguntas = bancoDePerguntas[areaSelecionada.id];
 
-    setAreasConcluidas(prev => ({
-      ...prev,
-      [areaSelecionada.id]: true
-    }));
+  // Verificação geral: todas tentativas precisam estar marcadas
+  for (const p of perguntas) {
+    for (let i = 1; i <= 4; i++) {
+      if (respostas[p.id]?.[i] === undefined) {
+        alert("⚠️ Preencha todas as tentativas antes de salvar!");
+        return;
+      }
+    }
+  }
 
-    setModalAberto(false);
-  };
+  console.log("Salvando avaliação:", respostas);
+  alert(`Dados salvos para o paciente ${pacienteNome}!`);
+
+  setAreasConcluidas(prev => ({
+    ...prev,
+    [areaSelecionada.id]: true
+  }));
+
+  setModalAberto(false);
+};
+
 
   const perguntasAtuais = areaSelecionada ? bancoDePerguntas[areaSelecionada.id] : [];
 
