@@ -125,7 +125,7 @@ export default function Protocolo() {
     }
 
     // Regra de coerência: se tentativa anterior for 0, todas seguintes = 0
-    if (tentativa > 1) {
+    if (tentativa > 4) {
       for (let i = tentativa - 1; i >= 1; i--) {
         if (atual[i] === 0) {
           atual[tentativa] = 0;
@@ -138,7 +138,7 @@ export default function Protocolo() {
       [marcoId]: atual
     };
   });
-};
+  };
 
   // Calcula pontuação total por tentativa
   const calcularPontuacaoTotal = (tentativa) => {

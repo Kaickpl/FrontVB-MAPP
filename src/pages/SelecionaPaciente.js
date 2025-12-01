@@ -62,7 +62,7 @@ export default function SelecionaPaciente() {
       navigate(`/relatorio/${paciente.idPaciente}`, {
         state: dados
       });
-
+      
     } catch (error) {
       console.error("Erro ao gerar relatório:", error);
     }
