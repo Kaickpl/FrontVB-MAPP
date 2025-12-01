@@ -36,6 +36,7 @@ export default function SelecionaPaciente() {
   const selecionarPaciente = (paciente) => {
     localStorage.setItem("pacienteSelecionadoId", paciente.idPaciente);
     localStorage.setItem("pacienteSelecionadoNome", paciente.nomePaciente);
+    localStorage.setItem("pacienteSelecionadoData", paciente.dataDeNascimento)
 
     console.log("Paciente Selecionado:", paciente.nomePaciente);
 
@@ -62,7 +63,7 @@ export default function SelecionaPaciente() {
       navigate(`/relatorio/${paciente.idPaciente}`, {
         state: dados
       });
-      
+
     } catch (error) {
       console.error("Erro ao gerar relatório:", error);
     }
@@ -198,7 +199,7 @@ export default function SelecionaPaciente() {
                     >
                       <Calendar size={16} color="#3b82f6" />
                       <span style={{ fontSize: "0.9rem" }}>
-                        Nascimento: {p.dataNascimento || "Não informado"}
+                        Nascimento: {p.dataDeNascimento || "Não informado"}
                       </span>
                     </div>
                   </div>
