@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { User, Calendar, ArrowRight, Users } from "lucide-react";
+import api from "../Service/Api";
 
 
 import "./Home.css";
@@ -49,6 +50,23 @@ export default function SelecionaPaciente() {
     if (g === "masculino") return "👦🏽";
     if (g === "feminino") return "👧🏽";
   };
+
+  async function gerarRelatorio(paciente) {
+    try {
+      console.log(paciente);
+
+      const response = await api.get(`/consultas/relatorio/${paciente.idPaciente}`);
+
+      const dados = response.data;
+
+      navigate(`/relatorio/${paciente.idPaciente}`, {
+        state: dados
+      });
+
+    } catch (error) {
+      console.error("Erro ao gerar relatório:", error);
+    }
+  }
 
   return (
     <div className="container-principal">
@@ -199,6 +217,20 @@ export default function SelecionaPaciente() {
                   }}
                 >
                   Iniciar Protocolo <ArrowRight size={18} />
+                </button>
+                <button
+                  onClick={() => gerarRelatorio(p)}
+                  className="botao-acao"
+                  style={{
+                    marginTop: "20px",
+                    width: "100%",
+                    justifyContent: "center",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                  }}
+                >
+                  Gerar Relatório <ArrowRight size={18} />
                 </button>
               </div>
             ))}

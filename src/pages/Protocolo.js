@@ -183,7 +183,7 @@ export default function Protocolo() {
       
       <header className="cabecalho-principal">
         <div style={{display: 'flex', alignItems: 'center', gap: '15px'}}>
-          <Link to="/home" style={{color: 'white', display: 'flex', alignItems: 'center'}}>
+          <Link to="/SelecionaPaciente" style={{color: 'white', display: 'flex', alignItems: 'center'}}>
             <ArrowLeft />
           </Link>
           <h4 className="titulo-cabecalho">Nível 1 - Avaliação</h4>
